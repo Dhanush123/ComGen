@@ -1,0 +1,1 @@
+b'package common;\n\npublic class ThreadPoolConstants {\n    public static final int CORE_POOL_SIZE = 5;\n    public static final int MAX_POOL_SIZE = 10;\n    public static final int QUEUE_CAPACITY = 100;\n    public static final Long KEEP_ALIVE_TIME = 1L;\n    private ThreadPoolConstants(){\n\n    }\n}\n'
