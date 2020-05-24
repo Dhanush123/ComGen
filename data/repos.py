@@ -50,33 +50,36 @@ def get_and_filter_repo_files(repo):
         return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
     download_url = repo.archive_url.replace(
-        '{archive_format}{/ref}', 'zipball/master'
+        '{archive_format}{/ref}', 'archive/master.zip'
     )
-    try:
-        raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
-        filtered_dir = os.path.join(os.getcwd(), 'Java', 'filtered')
-        Path(raw_dir).mkdir()
-        Path(filtered_dir).mkdir()
-    except:
-        pass
+    raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
+    filtered_dir = os.path.join(os.getcwd(), 'Java', 'filtered')
     repo_zip_path = os.path.join(raw_dir, f'{repo.name}.zip')
     repo_unzip_path = os.path.join(raw_dir, rand_folder_name_gen())
-    curl_cmd = f'curl -Lk -o {repo_zip_path} {download_url}'
+    curl_cmd = f'curl -Lk {download_url} -o {repo_zip_path}'
+
+    try:
+        Path(raw_dir).mkdir(parents=True)
+        Path(filtered_dir).mkdir(parents=True)
+        Path(repo_unzip_path).mkdir(parents=True)
+    except:
+        pass
 
     try:
         # to not spam github with all requests at once
         time.sleep(random.randint(1, 5))
+        print(curl_cmd)
         subprocess.run(curl_cmd, shell=True, text=True)
 
-        Path(repo_unzip_path).mkdir(exist_ok=True)
-        with zipfile.ZipFile(repo_zip_path, 'r') as repo_zip:
+        with zipfile.ZipFile(repo_zip_path) as repo_zip:
             repo_zip.extractall(repo_unzip_path)
 
         matching_files = configfiles = glob.glob(
             f'{repo_unzip_path}/**/*.java', recursive=True)
         print(f'{len(matching_files)} matching files found in {repo.full_name} repo')
         for old_file_path in matching_files:
-            new_file_path = filtered_dir + get_file_from_path(old_file_path)
+            new_file_path = os.path.join(
+                filtered_dir, get_file_from_path(old_file_path))
             shutil.move(old_file_path, new_file_path)
 
     except Exception as e:
