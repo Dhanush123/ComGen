@@ -1,6 +1,15 @@
 import os
 import json
 import base64
+import random
+import string
+import subprocess
+import zipfile
+import glob
+import shutil
+import ntpath
+from pathlib import Path
+import time
 
 import requests
 import ray
@@ -13,82 +22,81 @@ load_dotenv()
 
 def print_rate_limit():
     rate_limit = github.get_rate_limit()
-    print('rate limit (core/search): {}/{}'.format(rate_limit.core, rate_limit.search))
+    print(f'rate limit (core/search): {rate_limit.core}/{rate_limit.search}')
 
 
-def base64_to_string(data):
-    return str(base64.b64decode(data, validate=True))
-
-
-def get_mostpopular_repos(lang, max_repos=100):
+def get_mostpopular_repos(max_repos=100):
+    def save_repo_data(repo):
+        with open('repos.txt', 'a+') as repo_file:
+            repo_file.write(
+                f'{repo.full_name},{repo.html_url},{repo.stargazers_count}\n')
     candidate_repos = []
     repositories = github.search_repositories(
-        query='language:{}'.format(lang), sort='stars')
+        query='language:Java', sort='stars')
     for i, repo in zip(range(max_repos), repositories):
         candidate_repos.append(repo)
-        print('got repo {} info: {}'.format(i, repo.full_name))
+        save_repo_data(repo)
+        print(f'got repo {i} info: {repo.full_name}')
     return candidate_repos
 
 
-# def filter_english_only_repos(repos):
-#     def is_english_string(s):
-#         try:
-#             s.encode(encoding='utf-8').decode('ascii')
-#         except UnicodeDecodeError:
-#             return False
-#         else:
-#             return True
-
-#     def is_english_repo(repo):
-#         repo_name = repo.full_name
-#         readme = repo.get_contents('README.md').content
-#         # readme = base64_to_string(repo.get_contents('README.md').content)
-#         print(repo_name, readme, is_english_string(
-#             repo_name), is_english_string(readme))
-#         return is_english_string(repo_name) and is_english_string(readme)
-
-#     repos[:] = [repo for repo in repos if is_english_repo(repo)]
-#     return repos
-
-
 @ray.remote
-def get_filter_save_repo_files(lang, repo, ext_filters):
-    def get_file_ext(file_name):
-        splits = file_name.rsplit('.', maxsplit=1)
-        # return just file name if doesn't have ext
-        return splits[1] if len(splits) == 2 else splits[0]
+def get_and_filter_repo_files(repo):
+    def get_file_from_path(path):
+        head, tail = ntpath.split(path)
+        return tail or ntpath.basename(head)
 
-    def save_file(file_name, file_content):
-        print(os.getcwd(), '/{}/{}'.format(lang, file_name))
-        with open('{}/{}/{}'.format(os.getcwd(), lang, file_name), 'w+') as writeable_file:
-            writeable_file.write(file_content)
+    def rand_folder_name_gen():
+        return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
-    repo_items = repo.get_contents('')
-    while repo_items:
-        repo_item = repo_items.pop(0)
-        # print(repo_item.type, repo_item.name)
-        if repo_item.type == 'dir':
-            more_items = repo.get_contents(repo_item.path)
-            if more_items:
-                repo_items.extend(repo.get_contents(repo_item.path))
-        elif repo_item.type == 'file' and get_file_ext(repo_item.name) in ext_filters:
-            try:
-                save_file(repo_item.name, base64_to_string(repo_item.content))
-            except:
-                pass
-    print('{} processed'.format(repo.full_name))
+    download_url = repo.archive_url.replace(
+        '{archive_format}{/ref}', 'zipball/master'
+    )
+    try:
+        raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
+        filtered_dir = os.path.join(os.getcwd(), 'Java', 'filtered')
+        Path(raw_dir).mkdir()
+        Path(filtered_dir).mkdir()
+    except:
+        pass
+    repo_zip_path = os.path.join(raw_dir, f'{repo.name}.zip')
+    repo_unzip_path = os.path.join(raw_dir, rand_folder_name_gen())
+    curl_cmd = f'curl -Lk -o {repo_zip_path} {download_url}'
+
+    try:
+        # to not spam github with all requests at once
+        time.sleep(random.randint(1, 5))
+        subprocess.run(curl_cmd, shell=True, text=True)
+
+        Path(repo_unzip_path).mkdir(exist_ok=True)
+        with zipfile.ZipFile(repo_zip_path, 'r') as repo_zip:
+            repo_zip.extractall(repo_unzip_path)
+
+        matching_files = configfiles = glob.glob(
+            f'{repo_unzip_path}/**/*.java', recursive=True)
+        print(f'{len(matching_files)} matching files found in {repo.full_name} repo')
+        for old_file_path in matching_files:
+            new_file_path = filtered_dir + get_file_from_path(old_file_path)
+            shutil.move(old_file_path, new_file_path)
+
+    except Exception as e:
+        print(e)
+
+
+def clean_up():
+    # remove zip files and unzipped folders
+    raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
+    if os.path.isdir(raw_dir):
+        shutil.rmtree(raw_dir)
 
 
 if __name__ == '__main__':
     ray.init()
-    lang = 'Java'
-    max_repos = 3
-    ext_filters = set(['java'])
-    # repos = filter_english_only_repos(get_mostpopular_repos(lang, max_repos))
-    repos = get_mostpopular_repos(lang, max_repos)
-    print("{} filtered repos found".format(len(repos)))
+    max_repos = 1000
+    repos = get_mostpopular_repos(max_repos)
+    print(f'{len(repos)} filtered repos found')
     print_rate_limit()
-    futures = [get_filter_save_repo_files.remote(
-        lang, repo, ext_filters) for repo in repos]
-    print(ray.get(futures))
+    futures = [get_and_filter_repo_files.remote(repo) for repo in repos]
+    ray.get(futures)
     print_rate_limit()
+    clean_up()
