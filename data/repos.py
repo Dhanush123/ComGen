@@ -10,6 +10,7 @@ import shutil
 import ntpath
 from pathlib import Path
 import time
+import sys
 
 import requests
 import ray
@@ -30,18 +31,19 @@ def get_mostpopular_repos(max_repos=100):
         with open('repos.txt', 'a+') as repo_file:
             repo_file.write(
                 f'{repo.full_name},{repo.html_url},{repo.stargazers_count}\n')
-    candidate_repos = []
+    repos = []
     repositories = github.search_repositories(
         query='language:Java', sort='stars')
     for i, repo in zip(range(max_repos), repositories):
-        candidate_repos.append(repo)
+        repos.append(repo)
         save_repo_data(repo)
         print(f'got repo {i} info: {repo.full_name}')
-    return candidate_repos
+    print(f'{len(repos)} repos found')
+    return repos
 
 
 @ray.remote
-def get_and_filter_repo_files(repo):
+def get_and_filter_repo_files(repo, raw_dir, filtered_dir):
     def get_file_from_path(path):
         head, tail = ntpath.split(path)
         return tail or ntpath.basename(head)
@@ -50,13 +52,12 @@ def get_and_filter_repo_files(repo):
         return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
     download_url = repo.archive_url.replace(
-        '{archive_format}{/ref}', 'archive/master.zip'
+        '{archive_format}{/ref}', 'zipball/master'
     )
-    raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
-    filtered_dir = os.path.join(os.getcwd(), 'Java', 'filtered')
+
     repo_zip_path = os.path.join(raw_dir, f'{repo.name}.zip')
     repo_unzip_path = os.path.join(raw_dir, rand_folder_name_gen())
-    curl_cmd = f'curl -Lk {download_url} -o {repo_zip_path}'
+    curl_cmd = f'curl -u \"{os.getenv("GITHUB_USERNAME")}:{os.getenv("GITHUB_ACCESS_TOKEN")}\" -Lk {download_url} -o {repo_zip_path}'
 
     try:
         Path(raw_dir).mkdir(parents=True)
@@ -86,7 +87,10 @@ def get_and_filter_repo_files(repo):
         print(e)
 
 
-def clean_up():
+def final_steps(raw_dir, filtered_dir):
+    num_files = len([f for f in os.listdir(
+        filtered_dir)if os.path.isfile(os.path.join(filtered_dir, f))])
+    print(f'{len(num_files)} total files collected')
     # remove zip files and unzipped folders
     raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
     if os.path.isdir(raw_dir):
@@ -96,10 +100,13 @@ def clean_up():
 if __name__ == '__main__':
     ray.init()
     max_repos = 1000
+    raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
+    filtered_dir = os.path.join(os.getcwd(), 'Java', 'filtered')
+
     repos = get_mostpopular_repos(max_repos)
-    print(f'{len(repos)} filtered repos found')
     print_rate_limit()
-    futures = [get_and_filter_repo_files.remote(repo) for repo in repos]
+    futures = [get_and_filter_repo_files.remote(
+        repo, raw_dir, filtered_dir) for repo in repos]
     ray.get(futures)
     print_rate_limit()
-    clean_up()
+    final_steps(raw_dir, filtered_dir)
