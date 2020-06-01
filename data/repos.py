@@ -7,10 +7,12 @@ import subprocess
 import zipfile
 import glob
 import shutil
-import ntpath
 from pathlib import Path
 import time
 import sys
+
+from constants import lang_dir, raw_dir, filtered_dir
+from utilities import get_filename_from_path
 
 import requests
 import ray
@@ -33,7 +35,7 @@ def get_mostpopular_repos(max_repos=100):
                 f'{repo.full_name},{repo.html_url},{repo.stargazers_count}\n')
     repos = []
     repositories = github.search_repositories(
-        query='language:Java', sort='stars')
+        query='language:Python', sort='stars')
     for i, repo in zip(range(max_repos), repositories):
         repos.append(repo)
         save_repo_data(repo)
@@ -44,10 +46,6 @@ def get_mostpopular_repos(max_repos=100):
 
 @ray.remote
 def get_and_filter_repo_files(repo, raw_dir, filtered_dir):
-    def get_file_from_path(path):
-        head, tail = ntpath.split(path)
-        return tail or ntpath.basename(head)
-
     def rand_folder_name_gen():
         return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
@@ -76,11 +74,11 @@ def get_and_filter_repo_files(repo, raw_dir, filtered_dir):
             repo_zip.extractall(repo_unzip_path)
 
         matching_files = configfiles = glob.glob(
-            f'{repo_unzip_path}/**/*.java', recursive=True)
+            f'{repo_unzip_path}/**/*.py', recursive=True)
         print(f'{len(matching_files)} matching files found in {repo.full_name} repo')
         for old_file_path in matching_files:
             new_file_path = os.path.join(
-                filtered_dir, get_file_from_path(old_file_path))
+                filtered_dir, get_filename_from_path(old_file_path))
             shutil.move(old_file_path, new_file_path)
 
     except Exception as e:
@@ -90,9 +88,8 @@ def get_and_filter_repo_files(repo, raw_dir, filtered_dir):
 def final_steps(raw_dir, filtered_dir):
     num_files = len([f for f in os.listdir(
         filtered_dir)if os.path.isfile(os.path.join(filtered_dir, f))])
-    print(f'{len(num_files)} total files collected')
+    print(f'{num_files} total files collected')
     # remove zip files and unzipped folders
-    raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
     if os.path.isdir(raw_dir):
         shutil.rmtree(raw_dir)
 
@@ -100,8 +97,6 @@ def final_steps(raw_dir, filtered_dir):
 if __name__ == '__main__':
     ray.init()
     max_repos = 1000
-    raw_dir = os.path.join(os.getcwd(), 'Java', 'raw')
-    filtered_dir = os.path.join(os.getcwd(), 'Java', 'filtered')
 
     repos = get_mostpopular_repos(max_repos)
     print_rate_limit()

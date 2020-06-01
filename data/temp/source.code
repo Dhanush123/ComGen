@@ -1,0 +1,796 @@
+package com . x10host . dhanushpatel . phototagger ;
+
+import android . Manifest ;
+import android . annotation . SuppressLint ;
+import android . app . Activity ;
+import android . app . SearchManager ;
+import android . content . ContentResolver ;
+import android . content . ContentUris ;
+import android . content . Context ;
+import android . content . DialogInterface ;
+import android . content . Intent ;
+import android . content . SharedPreferences ;
+import android . content . pm . PackageManager ;
+import android . database . Cursor ;
+import android . graphics . Bitmap ;
+import android . graphics . BitmapFactory ;
+import android . graphics . drawable . BitmapDrawable ;
+import android . media . ThumbnailUtils ;
+import android . net . ConnectivityManager ;
+import android . net . NetworkInfo ;
+import android . net . Uri ;
+import android . os . AsyncTask ;
+import android . os . Build ;
+import android . os . Bundle ;
+import android . os . Environment ;
+import android . preference . PreferenceManager ;
+import android . provider . DocumentsContract ;
+import android . provider . MediaStore ;
+import android . provider . Settings ;
+import android . support . v4 . app . ActivityCompat ;
+import android . support . v4 . content . ContextCompat ;
+import android . support . v7 . app . AlertDialog ;
+import android . support . v7 . app . AppCompatActivity ;
+import android . support . v7 . widget . Toolbar ;
+import android . text . InputType ;
+import android . text . method . ScrollingMovementMethod ;
+import android . util . Log ;
+import android . view . Menu ;
+import android . view . MenuItem ;
+import android . view . View ;
+import android . view . WindowManager ;
+import android . widget . Button ;
+import android . widget . EditText ;
+import android . widget . ImageView ;
+import android . widget . RelativeLayout ;
+import android . widget . TextView ;
+import android . widget . Toast ;
+
+import com . clarifai . api . ClarifaiClient ;
+import com . clarifai . api . RecognitionRequest ;
+import com . clarifai . api . RecognitionResult ;
+import com . clarifai . api . Tag ;
+import com . google . android . gms . appindexing . Action ;
+import com . google . android . gms . appindexing . AppIndex ;
+import com . google . android . gms . common . api . GoogleApiClient ;
+import com . x10host . dhanushpatel . phototagger . alchemy_api . AlchemyAPI ;
+import com . x10host . dhanushpatel . phototagger . alchemy_api . AlchemyAPI_ImageParams ;
+
+import org . w3c . dom . Document ;
+import org . w3c . dom . Element ;
+import org . w3c . dom . Node ;
+import org . w3c . dom . NodeList ;
+
+import java . io . BufferedInputStream ;
+import java . io . ByteArrayOutputStream ;
+import java . io . File ;
+import java . io . FileInputStream ;
+import java . io . FileNotFoundException ;
+import java . io . FileOutputStream ;
+import java . io . IOException ;
+import java . io . InputStream ;
+import java . text . SimpleDateFormat ;
+import java . util . ArrayList ;
+import java . util . Calendar ;
+import java . util . Date ;
+import java . util . List ;
+
+public class MainActivity extends AppCompatActivity {
+
+private static final int TAKE_PICTURE = NUM_ ;
+private static final int PICK_PHOTO = NUM_ ;
+private static final int PICK_VIDEO = NUM_ ;
+private static final int MULT_PERMISSIONS = NUM_ ;
+
+String [ ] permissions = new String [ ] { Manifest . permission . WRITE_EXTERNAL_STORAGE ,
+Manifest . permission . READ_EXTERNAL_STORAGE , } ;
+
+boolean pickOrChoose = BOOL_ ;
+Button takePhotoButton ;
+Button choosePhotoButton ;
+Button retryIDButton ;
+Button videoScanButton ;
+ImageView photoShow ;
+TextView photoTags ;
+Bitmap chosenBitmap ;
+String mTakenPhotoPath ;
+String mChoosenPhotoPath ;
+String tags ;
+String firstTag ;
+ClarifaiClient clarifai ;
+String AlchemyAPI_Key = Constants . API_KEY ;
+List < RecognitionResult > results ;
+byte [ ] photoBytes ;
+int limit = NUM_ ;
+int newNumCalls ;
+String month_name ;
+private Toolbar toolbar ;
+byte [ ] videoBytes ;
+RelativeLayout rl ;
+
+private GoogleApiClient client ;
+
+@ Override
+protected void onCreate ( Bundle savedInstanceState ) {
+super . onCreate ( savedInstanceState ) ;
+setContentView ( R . layout . activity_main ) ;
+toolbar = ( Toolbar ) findViewById ( R . id . my_toolbar ) ;
+setSupportActionBar ( toolbar ) ;
+if ( Build . VERSION . SDK_INT >= Build . VERSION_CODES . LOLLIPOP ) {
+getWindow ( ) . addFlags ( WindowManager . LayoutParams . FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS ) ;
+getWindow ( ) . setStatusBarColor ( getResources ( ) . getColor ( R . color . colorPrimaryDark ) ) ;
+}
+getSupportActionBar ( ) . setTitle ( STR_ ) ;
+takePhotoButton = ( Button ) findViewById ( R . id . takePhotoButton ) ;
+choosePhotoButton = ( Button ) findViewById ( R . id . choosePhotoButton ) ;
+retryIDButton = ( Button ) findViewById ( R . id . retryIDButton ) ;
+videoScanButton = ( Button ) findViewById ( R . id . videoScanButton ) ;
+
+photoShow = ( ImageView ) findViewById ( R . id . photoShow ) ;
+photoTags = ( TextView ) findViewById ( R . id . photoTags ) ;
+rl = ( RelativeLayout ) findViewById ( R . id . mainPage ) ;
+
+getBackground ( ) ;
+photoTags . setMovementMethod ( ScrollingMovementMethod . getInstance ( ) ) ;
+
+retryIDButton . setVisibility ( View . GONE ) ;
+
+clarifai = new ClarifaiClient ( Constants . APP_ID , Constants . APP_SECRET ) ;
+buttonListeners ( ) ;
+
+client = new GoogleApiClient . Builder ( this ) . addApi ( AppIndex . API ) . build ( ) ;
+
+if ( ! isNetworkAvailable ( ) ) {
+createNetworkErrorDialog ( ) ;
+}
+
+if ( checkPermissions ( ) ) {
+} else {
+permissionFailDialogCreate ( ) ;
+}
+}
+
+
+private void permissionFailDialogCreate ( ) {
+AlertDialog . Builder builder = new AlertDialog . Builder ( this ) ;
+builder
+. setMessage ( STR_ )
+. setTitle ( STR_ ) . setCancelable ( BOOL_ )
+. setPositiveButton ( STR_ , new DialogInterface . OnClickListener ( ) {
+public void onClick ( DialogInterface dialog , int id ) {
+if ( checkPermissions ( ) ) {
+
+} else {
+dialog . cancel ( ) ;
+permissionFailDialogCreate ( ) ;
+}
+}
+} ) . setNegativeButton ( STR_ , new DialogInterface . OnClickListener ( ) {
+public void onClick ( DialogInterface dialog , int id ) {
+dialog . cancel ( ) ;
+}
+} ) ;
+AlertDialog alert = builder . create ( ) ;
+alert . show ( ) ;
+}
+
+private boolean checkPermissions ( ) {
+int result ;
+List < String > listPermissionsNeeded = new ArrayList < > ( ) ;
+for ( String p : permissions ) {
+result = ContextCompat . checkSelfPermission ( MainActivity . this , p ) ;
+if ( result != PackageManager . PERMISSION_GRANTED ) {
+listPermissionsNeeded . add ( p ) ;
+}
+}
+if ( ! listPermissionsNeeded . isEmpty ( ) ) {
+ActivityCompat . requestPermissions ( this , listPermissionsNeeded . toArray ( new String [ listPermissionsNeeded . size ( ) ] ) ,
+MULT_PERMISSIONS ) ;
+return BOOL_ ;
+}
+return BOOL_ ;
+}
+
+@ Override
+public void onRequestPermissionsResult ( int requestCode , String permissions [ ] , int [ ] grantResults ) {
+switch ( requestCode ) {
+case MULT_PERMISSIONS : {
+if ( grantResults . length > NUM_ && grantResults [ NUM_ ] == PackageManager . PERMISSION_GRANTED ) {
+} else {
+permissionFailDialogCreate ( ) ;
+}
+return ;
+}
+}
+}
+
+@ Override
+public boolean onCreateOptionsMenu ( Menu menu ) {
+getMenuInflater ( ) . inflate ( R . menu . menu , menu ) ;
+return BOOL_ ;
+}
+
+@ Override
+public boolean onOptionsItemSelected ( MenuItem item ) {
+int id = item . getItemId ( ) ;
+
+if ( id == R . id . menu_item_share ) {
+
+if ( photoShow . getDrawable ( ) != null ) {
+Bitmap b = ( ( BitmapDrawable ) photoShow . getDrawable ( ) ) . getBitmap ( ) ;
+Intent share = new Intent ( Intent . ACTION_SEND ) ;
+share . setType ( STR_ ) ;
+ByteArrayOutputStream bytes = new ByteArrayOutputStream ( ) ;
+b . compress ( Bitmap . CompressFormat . JPEG , NUM_ , bytes ) ;
+String path = MediaStore . Images . Media . insertImage ( getContentResolver ( ) , b , STR_ , null ) ;
+Uri imageUri = Uri . parse ( path ) ;
+share . putExtra ( Intent . EXTRA_STREAM , imageUri ) ;
+share . putExtra ( Intent . EXTRA_TEXT , STR_ + tags ) ;
+startActivity ( Intent . createChooser ( share , STR_ ) ) ;
+return BOOL_ ;
+} else {
+Toast . makeText ( getApplicationContext ( ) , STR_ , Toast . LENGTH_SHORT ) . show ( ) ;
+}
+} else if ( id == R . id . menu_item_search ) {
+onCreateSearchDialog ( ) ;
+} else if ( id == R . id . menu_item_settings ) {
+startActivity ( new Intent ( getApplicationContext ( ) , SettingsActivity . class ) ) ;
+}
+
+return super . onOptionsItemSelected ( item ) ;
+}
+
+private void buttonListeners ( ) {
+takePhotoButton . setOnClickListener ( new View . OnClickListener ( ) {
+@ Override
+public void onClick ( View v ) {
+
+if ( checkPermissions ( ) ) {
+} else {
+permissionFailDialogCreate ( ) ;
+}
+Intent intent = new Intent ( MediaStore . ACTION_IMAGE_CAPTURE ) ;
+
+startActivityForResult ( intent , TAKE_PICTURE ) ;
+}
+} ) ;
+choosePhotoButton . setOnClickListener ( new View . OnClickListener ( ) {
+@ Override
+public void onClick ( View v ) {
+
+if ( checkPermissions ( ) ) {
+} else {
+permissionFailDialogCreate ( ) ;
+}
+Intent intent = new Intent ( Intent . ACTION_GET_CONTENT ) ;
+intent . setType ( STR_ ) ;
+startActivityForResult ( intent , PICK_PHOTO ) ;
+}
+} ) ;
+retryIDButton . setOnClickListener ( new View . OnClickListener ( ) {
+@ Override
+public void onClick ( View v ) {
+
+if ( checkPermissions ( ) ) {
+} else {
+permissionFailDialogCreate ( ) ;
+}
+if ( ! reachedMonthlyClarifaiLimit ( ) ) {
+updateClarifaiLimit ( ) ;
+photoTags . setText ( STR_ ) ;
+Bitmap bitmap = ( ( BitmapDrawable ) photoShow . getDrawable ( ) ) . getBitmap ( ) ;
+ByteArrayOutputStream stream = new ByteArrayOutputStream ( ) ;
+bitmap . compress ( Bitmap . CompressFormat . PNG , NUM_ , stream ) ;
+photoBytes = stream . toByteArray ( ) ;
+new AsyncTask < Void , Void , Void > ( ) {
+@ Override
+protected Void doInBackground ( final Void ... params ) {
+results = clarifai . recognize ( new RecognitionRequest ( photoBytes ) ) ;
+return null ;
+}
+
+@ Override
+protected void onPostExecute ( final Void result ) {
+clarifaiUIUpdate ( ) ;
+}
+} . executeOnExecutor ( AsyncTask . THREAD_POOL_EXECUTOR , null ) ;
+} else {
+Toast . makeText ( getApplicationContext ( ) ,
+STR_ + limit + STR_ + limit + STR_ , Toast . LENGTH_SHORT )
+. show ( ) ;
+}
+}
+} ) ;
+videoScanButton . setOnClickListener ( new View . OnClickListener ( ) {
+@ Override
+public void onClick ( View v ) {
+
+if ( checkPermissions ( ) ) {
+} else {
+permissionFailDialogCreate ( ) ;
+}
+pickOrChoose = BOOL_ ;
+Intent intent = new Intent ( Intent . ACTION_GET_CONTENT ) ;
+intent . setType ( STR_ ) ;
+startActivityForResult ( intent , PICK_VIDEO ) ;
+}
+} ) ;
+}
+
+private boolean reachedMonthlyClarifaiLimit ( ) {
+boolean reachedLimit = BOOL_ ;
+
+Calendar now = Calendar . getInstance ( ) ;
+int currentMonth = now . get ( Calendar . MONTH ) + NUM_ ;
+SharedPreferences sp = getSharedPreferences ( STR_ , Activity . MODE_PRIVATE ) ;
+int retrievedMonth = sp . getInt ( STR_ , - NUM_ ) ;
+if ( retrievedMonth != currentMonth ) {
+SharedPreferences sp2 = getSharedPreferences ( STR_ , Activity . MODE_PRIVATE ) ;
+SharedPreferences . Editor editor = sp2 . edit ( ) ;
+editor . putInt ( STR_ , currentMonth ) ;
+editor . commit ( ) ;
+retrievedMonth = currentMonth ;
+}
+
+SharedPreferences sp2 = getSharedPreferences ( STR_ , Activity . MODE_PRIVATE ) ;
+int userClarifaiCalls = sp2 . getInt ( STR_ , NUM_ ) ;
+if ( userClarifaiCalls == limit && retrievedMonth == currentMonth ) {
+reachedLimit = BOOL_ ;
+}
+
+return reachedLimit ;
+}
+
+private void updateClarifaiLimit ( ) {
+SharedPreferences sp = getSharedPreferences ( STR_ , Activity . MODE_PRIVATE ) ;
+int gotUserClarifaiCalls = sp . getInt ( STR_ , NUM_ ) ;
+newNumCalls = ++ gotUserClarifaiCalls ;
+SharedPreferences sp2 = getSharedPreferences ( STR_ , Activity . MODE_PRIVATE ) ;
+SharedPreferences . Editor editor = sp2 . edit ( ) ;
+
+editor . putInt ( STR_ , newNumCalls ) ;
+editor . commit ( ) ;
+}
+
+private boolean isNetworkAvailable ( ) {
+ConnectivityManager connectivityManager = ( ConnectivityManager ) getSystemService ( Context . CONNECTIVITY_SERVICE ) ;
+NetworkInfo activeNetworkInfo = connectivityManager . getActiveNetworkInfo ( ) ;
+return activeNetworkInfo != null && activeNetworkInfo . isConnected ( ) ;
+}
+
+protected void createNetworkErrorDialog ( ) {
+
+AlertDialog . Builder builder = new AlertDialog . Builder ( this ) ;
+builder . setMessage (
+STR_ )
+. setTitle ( STR_ ) . setCancelable ( BOOL_ )
+. setPositiveButton ( STR_ , new DialogInterface . OnClickListener ( ) {
+public void onClick ( DialogInterface dialog , int id ) {
+Intent i = new Intent ( Settings . ACTION_WIRELESS_SETTINGS ) ;
+startActivity ( i ) ;
+}
+} ) . setNegativeButton ( STR_ , new DialogInterface . OnClickListener ( ) {
+public void onClick ( DialogInterface dialog , int id ) {
+MainActivity . this . finish ( ) ;
+}
+} ) ;
+AlertDialog alert = builder . create ( ) ;
+alert . show ( ) ;
+}
+
+public void onCreateSearchDialog ( ) {
+AlertDialog . Builder builder = new AlertDialog . Builder ( this ) ;
+builder . setTitle ( STR_ ) ;
+
+final EditText input = new EditText ( this ) ;
+input . setInputType ( InputType . TYPE_CLASS_TEXT ) ;
+if ( firstTag == null ) {
+input . setHint ( STR_ ) ;
+} else {
+input . setHint ( STR_ + firstTag ) ;
+}
+builder . setView ( input ) ;
+
+builder . setPositiveButton ( STR_ , new DialogInterface . OnClickListener ( ) {
+@ Override
+public void onClick ( DialogInterface dialog , int which ) {
+String searchText = input . getText ( ) . toString ( ) ;
+Log . i ( STR_ , searchText ) ;
+if ( ! searchText . equals ( STR_ ) && ! searchText . equals ( STR_ ) && searchText != null ) {
+Intent intent = new Intent ( Intent . ACTION_WEB_SEARCH ) ;
+intent . putExtra ( SearchManager . QUERY , searchText ) ;
+startActivity ( intent ) ;
+}
+}
+} ) ;
+builder . setNegativeButton ( STR_ , new DialogInterface . OnClickListener ( ) {
+@ Override
+public void onClick ( DialogInterface dialog , int which ) {
+dialog . cancel ( ) ;
+}
+} ) ;
+
+builder . show ( ) ;
+}
+
+private void clarifaiUIUpdate ( ) {
+
+Calendar cal = Calendar . getInstance ( ) ;
+SimpleDateFormat month_date = new SimpleDateFormat ( STR_ ) ;
+month_name = month_date . format ( cal . getTime ( ) ) ;
+Toast . makeText ( getApplicationContext ( ) ,
+STR_ + month_name + STR_ + ( limit - newNumCalls ) + STR_ + limit , Toast . LENGTH_LONG )
+. show ( ) ;
+
+if ( results . get ( NUM_ ) . getTags ( ) != null ) {
+
+List < Tag > tagsFound = results . get ( NUM_ ) . getTags ( ) ;
+String tag = STR_ ;
+for ( int i = NUM_ ; i < tagsFound . size ( ) ; i ++ ) {
+tag = tagsFound . get ( i ) . getName ( ) ;
+if ( i == NUM_ ) {
+firstTag = tag ;
+photoTags . setText ( STR_ + tag ) ;
+tags = tag ;
+} else {
+photoTags . append ( STR_ + tag ) ;
+tags = tags + STR_ + tag ;
+}
+}
+Log . i ( STR_ , tags ) ;
+} else {
+photoTags . setText ( STR_ ) ;
+}
+retryIDButton . setVisibility ( View . GONE ) ;
+}
+
+@ SuppressLint ( STR_ )
+@ Override
+protected void onActivityResult ( int requestCode , int resultCode , Intent intent ) {
+if ( requestCode == PICK_PHOTO && resultCode == RESULT_OK && intent != null ) {
+photoTags . setText ( STR_ ) ;
+
+Uri selectedImage = intent . getData ( ) ;
+InputStream inputStream = null ;
+mChoosenPhotoPath = selectedImage . getPath ( ) ;
+if ( ContentResolver . SCHEME_CONTENT . equals ( selectedImage . getScheme ( ) ) ) {
+try {
+inputStream = this . getContentResolver ( ) . openInputStream ( selectedImage ) ;
+} catch ( FileNotFoundException e ) {
+e . printStackTrace ( ) ;
+}
+} else {
+if ( ContentResolver . SCHEME_FILE . equals ( selectedImage . getScheme ( ) ) ) {
+try {
+inputStream = new FileInputStream ( selectedImage . getPath ( ) ) ;
+} catch ( FileNotFoundException e ) {
+e . printStackTrace ( ) ;
+}
+}
+}
+chosenBitmap = BitmapFactory . decodeStream ( inputStream ) ;
+
+int currentBitmapWidth = chosenBitmap . getWidth ( ) ;
+int currentBitmapHeight = chosenBitmap . getHeight ( ) ;
+
+int ivWidth = photoShow . getWidth ( ) ;
+int ivHeight = photoShow . getHeight ( ) ;
+int newWidth = ivWidth ;
+
+int newHeight = ( int ) Math
+. floor ( ( double ) currentBitmapHeight * ( ( double ) newWidth / ( double ) currentBitmapWidth ) ) ;
+
+Bitmap newbitMap = Bitmap . createScaledBitmap ( chosenBitmap , newWidth , newHeight , BOOL_ ) ;
+
+photoShow . setImageBitmap ( newbitMap ) ;
+
+SendAlchemyCall ( STR_ ) ;
+}
+
+else if ( requestCode == TAKE_PICTURE && resultCode == RESULT_OK && intent != null ) {
+photoTags . setText ( STR_ ) ;
+Bundle extras = intent . getExtras ( ) ;
+Bitmap bitmap = ( Bitmap ) extras . get ( STR_ ) ;
+ByteArrayOutputStream bos = new ByteArrayOutputStream ( ) ;
+bitmap . compress ( Bitmap . CompressFormat . JPEG , NUM_ , bos ) ;
+byte [ ] bitmapdata = bos . toByteArray ( ) ;
+File file = null ;
+try {
+file = createImageFile ( ) ;
+} catch ( IOException e ) {
+e . printStackTrace ( ) ;
+}
+FileOutputStream fos = null ;
+try {
+fos = new FileOutputStream ( file ) ;
+} catch ( FileNotFoundException e ) {
+e . printStackTrace ( ) ;
+}
+try {
+fos . write ( bitmapdata ) ;
+} catch ( IOException e ) {
+e . printStackTrace ( ) ;
+}
+try {
+fos . flush ( ) ;
+} catch ( IOException e ) {
+e . printStackTrace ( ) ;
+}
+try {
+fos . close ( ) ;
+galleryAddPic ( ) ;
+} catch ( IOException e ) {
+e . printStackTrace ( ) ;
+}
+photoShow . setImageBitmap ( BitmapFactory . decodeFile ( String . valueOf ( new File ( mTakenPhotoPath ) ) ) ) ;
+SendAlchemyCall ( STR_ ) ;
+
+} else if ( requestCode == PICK_VIDEO && resultCode == RESULT_OK && intent != null ) {
+
+if ( ! reachedMonthlyClarifaiLimit ( ) ) {
+updateClarifaiLimit ( ) ;
+
+Uri uri = intent . getData ( ) ;
+if ( uri != null ) {
+}
+File file = new File ( getPath ( getApplicationContext ( ) , uri ) ) ;
+int size = ( int ) file . length ( ) ;
+if ( size < NUM_ ) {
+byte [ ] bytes = new byte [ size ] ;
+try {
+BufferedInputStream buf = new BufferedInputStream ( new FileInputStream ( file ) ) ;
+buf . read ( bytes , NUM_ , bytes . length ) ;
+buf . close ( ) ;
+} catch ( FileNotFoundException e ) {
+e . printStackTrace ( ) ;
+} catch ( IOException e ) {
+e . printStackTrace ( ) ;
+}
+videoBytes = bytes ;
+if ( videoBytes . length != NUM_ && videoBytes != null ) {
+photoTags . setText ( STR_ ) ;
+Log . i ( STR_ , ( videoBytes . length != NUM_ ) + STR_ ) ;
+Bitmap videoThumbnail = ThumbnailUtils . createVideoThumbnail ( getPath ( getApplicationContext ( ) , uri ) ,
+MediaStore . Video . Thumbnails . FULL_SCREEN_KIND ) ;
+photoShow . setImageBitmap ( videoThumbnail ) ;
+Log . i ( STR_ , size + STR_ ) ;
+}
+
+new AsyncTask < Void , Void , Void > ( ) {
+@ Override
+protected Void doInBackground ( final Void ... params ) {
+results = clarifai . recognize ( new RecognitionRequest ( videoBytes ) ) ;
+return null ;
+}
+
+@ Override
+protected void onPostExecute ( final Void result ) {
+clarifaiUIUpdate ( ) ;
+}
+} . executeOnExecutor ( AsyncTask . THREAD_POOL_EXECUTOR , null ) ;
+} else {
+Toast . makeText ( getApplicationContext ( ) , STR_ , Toast . LENGTH_SHORT )
+. show ( ) ;
+Log . i ( STR_ , size + STR_ ) ;
+}
+} else {
+Toast . makeText ( getApplicationContext ( ) ,
+STR_ + limit + STR_ + limit + STR_ ,
+Toast . LENGTH_SHORT ) . show ( ) ;
+}
+
+}
+}
+
+private void SendAlchemyCall ( final String call ) {
+Thread thread = new Thread ( new Runnable ( ) {
+@ Override
+public void run ( ) {
+try {
+SendAlchemyCallInBackground ( call ) ;
+} catch ( Exception e ) {
+e . printStackTrace ( ) ;
+}
+}
+} ) ;
+
+thread . start ( ) ;
+}
+
+private void SendAlchemyCallInBackground ( final String call ) {
+Document doc = null ;
+AlchemyAPI api = null ;
+try {
+api = AlchemyAPI . GetInstanceFromString ( AlchemyAPI_Key ) ;
+} catch ( IllegalArgumentException ex ) {
+return ;
+}
+
+try {
+if ( STR_ . equals ( call ) ) {
+Bitmap bitmap = ( ( BitmapDrawable ) photoShow . getDrawable ( ) ) . getBitmap ( ) ;
+ByteArrayOutputStream stream = new ByteArrayOutputStream ( ) ;
+bitmap . compress ( Bitmap . CompressFormat . JPEG , NUM_ , stream ) ;
+byte [ ] imageByteArray = stream . toByteArray ( ) ;
+
+AlchemyAPI_ImageParams imageParams = new AlchemyAPI_ImageParams ( ) ;
+imageParams . setImage ( imageByteArray ) ;
+imageParams . setImagePostMode ( AlchemyAPI_ImageParams . RAW ) ;
+doc = api . ImageGetRankedImageKeywords ( imageParams ) ;
+ShowTagInTextView ( doc , STR_ ) ;
+}
+} catch ( Exception e ) {
+e . printStackTrace ( ) ;
+}
+}
+
+private void ShowTagInTextView ( final Document doc , final String tag ) {
+Log . d ( getString ( R . string . app_name ) , doc . toString ( ) ) ;
+runOnUiThread ( new Runnable ( ) {
+@ Override
+public void run ( ) {
+Element root = doc . getDocumentElement ( ) ;
+NodeList items = root . getElementsByTagName ( tag ) ;
+for ( int i = NUM_ ; i < items . getLength ( ) ; i ++ ) {
+Node concept = items . item ( i ) ;
+String aString = concept . getChildNodes ( ) . item ( NUM_ ) . getNodeValue ( ) ;
+if ( i == NUM_ && aString . equals ( STR_ ) ) {
+photoTags . setText ( STR_ ) ;
+break ;
+} else if ( i == NUM_ && ! aString . equals ( STR_ ) ) {
+firstTag = aString ;
+photoTags . setText ( STR_ + aString ) ;
+tags = aString ;
+} else {
+photoTags . append ( STR_ + aString ) ;
+tags = tags + STR_ + aString ;
+}
+}
+retryIDButton . setVisibility ( View . VISIBLE ) ;
+
+Log . i ( STR_ , tags ) ;
+}
+} ) ;
+}
+
+private File createImageFile ( ) throws IOException {
+String timeStamp = new SimpleDateFormat ( STR_ ) . format ( new Date ( ) ) ;
+String imageFileName = STR_ + timeStamp + STR_ ;
+String folder_main = STR_ ;
+File storageDir = new File ( Environment . getExternalStorageDirectory ( ) , folder_main ) ;
+if ( ! storageDir . exists ( ) ) {
+storageDir . mkdirs ( ) ;
+}
+File image = File . createTempFile ( imageFileName , STR_ , storageDir ) ;
+
+mTakenPhotoPath = image . getAbsolutePath ( ) ;
+Log . e ( STR_ , mTakenPhotoPath ) ;
+return image ;
+}
+
+private void galleryAddPic ( ) {
+Intent mediaScanIntent = new Intent ( Intent . ACTION_MEDIA_SCANNER_SCAN_FILE ) ;
+File f = new File ( mTakenPhotoPath ) ;
+Uri contentUri = Uri . fromFile ( f ) ;
+mediaScanIntent . setData ( contentUri ) ;
+this . sendBroadcast ( mediaScanIntent ) ;
+Log . i ( STR_ , STR_ ) ;
+}
+
+public void getBackground ( ) {
+SharedPreferences sharedPreference = PreferenceManager . getDefaultSharedPreferences ( getBaseContext ( ) ) ;
+String codeGot = sharedPreference . getString ( STR_ , STR_ ) ;
+switch ( codeGot ) {
+case STR_ :
+rl . setBackgroundResource ( R . drawable . tiles ) ;
+break ;
+case STR_ :
+rl . setBackgroundResource ( R . drawable . darkwood ) ;
+break ;
+case STR_ :
+rl . setBackgroundResource ( R . drawable . blacklinen ) ;
+break ;
+default :
+Toast . makeText ( getApplicationContext ( ) , STR_ , Toast . LENGTH_SHORT ) . show ( ) ;
+}
+}
+
+@ Override
+public void onStart ( ) {
+super . onStart ( ) ;
+client . connect ( ) ;
+Action viewAction = Action . newAction ( Action . TYPE_VIEW , Uri . parse ( STR_ ) ,
+Uri . parse ( STR_ ) ) ;
+AppIndex . AppIndexApi . start ( client , viewAction ) ;
+}
+
+@ Override
+public void onStop ( ) {
+super . onStop ( ) ;
+
+Action viewAction = Action . newAction ( Action . TYPE_VIEW , STR_ , Uri . parse ( STR_ ) ,
+Uri . parse ( STR_ ) ) ;
+AppIndex . AppIndexApi . end ( client , viewAction ) ;
+client . disconnect ( ) ;
+}
+
+public static String getPath ( final Context context , final Uri uri ) {
+
+final boolean isKitKat = Build . VERSION . SDK_INT >= Build . VERSION_CODES . KITKAT ;
+
+if ( isKitKat && DocumentsContract . isDocumentUri ( context , uri ) ) {
+if ( isExternalStorageDocument ( uri ) ) {
+final String docId = DocumentsContract . getDocumentId ( uri ) ;
+final String [ ] split = docId . split ( STR_ ) ;
+final String type = split [ NUM_ ] ;
+
+if ( STR_ . equalsIgnoreCase ( type ) ) {
+return Environment . getExternalStorageDirectory ( ) + STR_ + split [ NUM_ ] ;
+}
+} else if ( isDownloadsDocument ( uri ) ) {
+
+final String id = DocumentsContract . getDocumentId ( uri ) ;
+final Uri contentUri = ContentUris . withAppendedId ( Uri . parse ( STR_ ) ,
+Long . valueOf ( id ) ) ;
+
+return getDataColumn ( context , contentUri , null , null ) ;
+} else if ( isMediaDocument ( uri ) ) {
+final String docId = DocumentsContract . getDocumentId ( uri ) ;
+final String [ ] split = docId . split ( STR_ ) ;
+final String type = split [ NUM_ ] ;
+
+Uri contentUri = null ;
+if ( STR_ . equals ( type ) ) {
+contentUri = MediaStore . Images . Media . EXTERNAL_CONTENT_URI ;
+} else if ( STR_ . equals ( type ) ) {
+contentUri = MediaStore . Video . Media . EXTERNAL_CONTENT_URI ;
+} else if ( STR_ . equals ( type ) ) {
+contentUri = MediaStore . Audio . Media . EXTERNAL_CONTENT_URI ;
+}
+
+final String selection = STR_ ;
+final String [ ] selectionArgs = new String [ ] { split [ NUM_ ] } ;
+
+return getDataColumn ( context , contentUri , selection , selectionArgs ) ;
+}
+} else if ( STR_ . equalsIgnoreCase ( uri . getScheme ( ) ) ) {
+return getDataColumn ( context , uri , null , null ) ;
+} else if ( STR_ . equalsIgnoreCase ( uri . getScheme ( ) ) ) {
+return uri . getPath ( ) ;
+}
+
+return null ;
+}
+
+public static String getDataColumn ( Context context , Uri uri , String selection , String [ ] selectionArgs ) {
+
+Cursor cursor = null ;
+final String column = STR_ ;
+final String [ ] projection = { column } ;
+
+try {
+cursor = context . getContentResolver ( ) . query ( uri , projection , selection , selectionArgs , null ) ;
+if ( cursor != null && cursor . moveToFirst ( ) ) {
+final int column_index = cursor . getColumnIndexOrThrow ( column ) ;
+return cursor . getString ( column_index ) ;
+}
+} finally {
+if ( cursor != null )
+cursor . close ( ) ;
+}
+return null ;
+}
+
+public static boolean isExternalStorageDocument ( Uri uri ) {
+return STR_ . equals ( uri . getAuthority ( ) ) ;
+}
+
+public static boolean isDownloadsDocument ( Uri uri ) {
+return STR_ . equals ( uri . getAuthority ( ) ) ;
+}
+
+public static boolean isMediaDocument ( Uri uri ) {
+return STR_ . equals ( uri . getAuthority ( ) ) ;
+}
+
+}

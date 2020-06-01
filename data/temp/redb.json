@@ -1,0 +1,3645 @@
+[
+  {
+    "type": "import",
+    "first_formatting": [],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "dotted_as_name",
+        "target": "",
+        "value": [
+          {
+            "type": "name",
+            "value": "ntpath"
+          }
+        ],
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "import",
+    "first_formatting": [],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "dotted_as_name",
+        "target": "",
+        "value": [
+          {
+            "type": "name",
+            "value": "subprocess"
+          }
+        ],
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "import",
+    "first_formatting": [],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "dotted_as_name",
+        "target": "",
+        "value": [
+          {
+            "type": "name",
+            "value": "re"
+          }
+        ],
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "import",
+    "first_formatting": [],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "dotted_as_name",
+        "target": "",
+        "value": [
+          {
+            "type": "name",
+            "value": "os"
+          }
+        ],
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "import",
+    "first_formatting": [],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "dotted_as_name",
+        "target": "",
+        "value": [
+          {
+            "type": "name",
+            "value": "shutil"
+          }
+        ],
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "from_import",
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "name",
+        "value": "datetime"
+      }
+    ],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "third_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "targets": [
+      {
+        "type": "name_as_name",
+        "value": "datetime",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "import",
+    "first_formatting": [],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "dotted_as_name",
+        "target": "",
+        "value": [
+          {
+            "type": "name",
+            "value": "glob"
+          }
+        ],
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "from_import",
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "name",
+        "value": "dotenv"
+      }
+    ],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "third_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "targets": [
+      {
+        "type": "name_as_name",
+        "value": "load_dotenv",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "comma",
+        "first_formatting": [],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ]
+      },
+      {
+        "type": "name_as_name",
+        "value": "find_dotenv",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "from_import",
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "value": [
+      {
+        "type": "name",
+        "value": "shakti"
+      },
+      {
+        "type": "dot",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "name",
+        "value": "utils"
+      },
+      {
+        "type": "dot",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "name",
+        "value": "constants"
+      }
+    ],
+    "second_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "third_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "targets": [
+      {
+        "type": "name_as_name",
+        "value": "DATA_FILE_EXTS",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "comma",
+        "first_formatting": [],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ]
+      },
+      {
+        "type": "name_as_name",
+        "value": "MODEL_FILE_EXTS",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "comma",
+        "first_formatting": [],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ]
+      },
+      {
+        "type": "name_as_name",
+        "value": "INFRA_FILE_EXTS",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "comma",
+        "first_formatting": [],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ]
+      },
+      {
+        "type": "name_as_name",
+        "value": "AUTH_ERROR",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "comma",
+        "first_formatting": [],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ]
+      },
+      {
+        "type": "name_as_name",
+        "value": "TRAIN_DIR_PREFIX",
+        "target": "",
+        "first_formatting": [],
+        "second_formatting": []
+      }
+    ]
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "endl",
+    "value": "\n",
+    "indent": "",
+    "formatting": []
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "get_env_creds",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "try",
+        "first_formatting": [],
+        "second_formatting": [],
+        "value": [
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "        ",
+            "formatting": []
+          },
+          {
+            "type": "atomtrailers",
+            "value": [
+              {
+                "type": "name",
+                "value": "os"
+              },
+              {
+                "type": "dot",
+                "first_formatting": [],
+                "second_formatting": []
+              },
+              {
+                "type": "name",
+                "value": "chdir"
+              },
+              {
+                "type": "call",
+                "first_formatting": [],
+                "second_formatting": [],
+                "value": [
+                  {
+                    "type": "call_argument",
+                    "first_formatting": [],
+                    "second_formatting": [],
+                    "target": {},
+                    "value": {
+                      "type": "atomtrailers",
+                      "value": [
+                        {
+                          "type": "name",
+                          "value": "os"
+                        },
+                        {
+                          "type": "dot",
+                          "first_formatting": [],
+                          "second_formatting": []
+                        },
+                        {
+                          "type": "name",
+                          "value": "getcwd"
+                        },
+                        {
+                          "type": "call",
+                          "first_formatting": [],
+                          "second_formatting": [],
+                          "value": [],
+                          "third_formatting": [],
+                          "fourth_formatting": []
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "third_formatting": [],
+                "fourth_formatting": []
+              }
+            ]
+          },
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "        ",
+            "formatting": []
+          },
+          {
+            "type": "assignment",
+            "operator": "",
+            "annotation_first_formatting": [],
+            "annotation_second_formatting": [],
+            "first_formatting": [
+              {
+                "type": "space",
+                "value": " "
+              }
+            ],
+            "second_formatting": [
+              {
+                "type": "space",
+                "value": " "
+              }
+            ],
+            "target": {
+              "type": "name",
+              "value": "dotenv_path"
+            },
+            "annotation": {},
+            "value": {
+              "type": "atomtrailers",
+              "value": [
+                {
+                  "type": "name",
+                  "value": "os"
+                },
+                {
+                  "type": "dot",
+                  "first_formatting": [],
+                  "second_formatting": []
+                },
+                {
+                  "type": "name",
+                  "value": "path"
+                },
+                {
+                  "type": "dot",
+                  "first_formatting": [],
+                  "second_formatting": []
+                },
+                {
+                  "type": "name",
+                  "value": "join"
+                },
+                {
+                  "type": "call",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "value": [
+                    {
+                      "type": "call_argument",
+                      "first_formatting": [],
+                      "second_formatting": [],
+                      "target": {},
+                      "value": {
+                        "type": "atomtrailers",
+                        "value": [
+                          {
+                            "type": "name",
+                            "value": "os"
+                          },
+                          {
+                            "type": "dot",
+                            "first_formatting": [],
+                            "second_formatting": []
+                          },
+                          {
+                            "type": "name",
+                            "value": "getcwd"
+                          },
+                          {
+                            "type": "call",
+                            "first_formatting": [],
+                            "second_formatting": [],
+                            "value": [],
+                            "third_formatting": [],
+                            "fourth_formatting": []
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "comma",
+                      "first_formatting": [],
+                      "second_formatting": [
+                        {
+                          "type": "space",
+                          "value": " "
+                        }
+                      ]
+                    },
+                    {
+                      "type": "call_argument",
+                      "first_formatting": [],
+                      "second_formatting": [],
+                      "target": {},
+                      "value": {
+                        "type": "string",
+                        "value": "".env"",
+                        "first_formatting": [],
+                        "second_formatting": []
+                      }
+                    }
+                  ],
+                  "third_formatting": [],
+                  "fourth_formatting": []
+                }
+              ]
+            }
+          },
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "        ",
+            "formatting": []
+          },
+          {
+            "type": "atomtrailers",
+            "value": [
+              {
+                "type": "name",
+                "value": "load_dotenv"
+              },
+              {
+                "type": "call",
+                "first_formatting": [],
+                "second_formatting": [],
+                "value": [
+                  {
+                    "type": "call_argument",
+                    "first_formatting": [],
+                    "second_formatting": [],
+                    "target": {
+                      "type": "name",
+                      "value": "dotenv_path"
+                    },
+                    "value": {
+                      "type": "name",
+                      "value": "dotenv_path"
+                    }
+                  }
+                ],
+                "third_formatting": [],
+                "fourth_formatting": []
+              }
+            ]
+          },
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "    ",
+            "formatting": []
+          }
+        ],
+        "excepts": [
+          {
+            "type": "except",
+            "delimiter": "",
+            "first_formatting": [],
+            "second_formatting": [],
+            "third_formatting": [],
+            "fourth_formatting": [],
+            "fifth_formatting": [],
+            "value": [
+              {
+                "type": "endl",
+                "value": "\n",
+                "indent": "        ",
+                "formatting": []
+              },
+              {
+                "type": "raise",
+                "comma_or_from": None,
+                "first_formatting": [
+                  {
+                    "type": "space",
+                    "value": " "
+                  }
+                ],
+                "second_formatting": [],
+                "third_formatting": [],
+                "fourth_formatting": [],
+                "fifth_formatting": [],
+                "value": {
+                  "type": "name",
+                  "value": "AUTH_ERROR"
+                },
+                "instance": {},
+                "traceback": {}
+              },
+              {
+                "type": "endl",
+                "value": "\n",
+                "indent": "",
+                "formatting": []
+              },
+              {
+                "type": "endl",
+                "value": "\n",
+                "indent": "",
+                "formatting": []
+              },
+              {
+                "type": "endl",
+                "value": "\n",
+                "indent": "",
+                "formatting": []
+              }
+            ],
+            "exception": {},
+            "target": {}
+          }
+        ],
+        "else": {},
+        "finally": {}
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "file_from_path",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [
+      {
+        "type": "def_argument",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [],
+        "second_formatting": [],
+        "target": {
+          "type": "name",
+          "value": "path"
+        },
+        "annotation": {},
+        "value": {}
+      }
+    ],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "string",
+        "value": """"Get file name from path string"""",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "comment",
+        "value": "# https: //stackoverflow.com/questions/8384737/extract-file-name-from-path-no-matter-what-the-os-path-format",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "assignment",
+        "operator": "",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "target": {
+          "type": "tuple",
+          "with_parenthesis": False,
+          "first_formatting": [],
+          "second_formatting": [],
+          "value": [
+            {
+              "type": "name",
+              "value": "head"
+            },
+            {
+              "type": "comma",
+              "first_formatting": [],
+              "second_formatting": [
+                {
+                  "type": "space",
+                  "value": " "
+                }
+              ]
+            },
+            {
+              "type": "name",
+              "value": "tail"
+            }
+          ],
+          "third_formatting": [],
+          "fourth_formatting": []
+        },
+        "annotation": {},
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "ntpath"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "split"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "name",
+                    "value": "path"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "boolean_operator",
+          "value": "or",
+          "first_formatting": [
+            {
+              "type": "space",
+              "value": " "
+            }
+          ],
+          "second_formatting": [
+            {
+              "type": "space",
+              "value": " "
+            }
+          ],
+          "first": {
+            "type": "name",
+            "value": "tail"
+          },
+          "second": {
+            "type": "atomtrailers",
+            "value": [
+              {
+                "type": "name",
+                "value": "ntpath"
+              },
+              {
+                "type": "dot",
+                "first_formatting": [],
+                "second_formatting": []
+              },
+              {
+                "type": "name",
+                "value": "basename"
+              },
+              {
+                "type": "call",
+                "first_formatting": [],
+                "second_formatting": [],
+                "value": [
+                  {
+                    "type": "call_argument",
+                    "first_formatting": [],
+                    "second_formatting": [],
+                    "target": {},
+                    "value": {
+                      "type": "name",
+                      "value": "head"
+                    }
+                  }
+                ],
+                "third_formatting": [],
+                "fourth_formatting": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "get_filename_noext",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [
+      {
+        "type": "def_argument",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [],
+        "second_formatting": [],
+        "target": {
+          "type": "name",
+          "value": "filename"
+        },
+        "annotation": {},
+        "value": {}
+      }
+    ],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "file_from_path"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [
+                {
+                  "type": "endl",
+                  "value": "\n",
+                  "indent": "        ",
+                  "formatting": []
+                }
+              ],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "name",
+                    "value": "filename"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "rsplit"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""."",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {
+                    "type": "name",
+                    "value": "maxsplit"
+                  },
+                  "value": {
+                    "type": "int",
+                    "value": "1",
+                    "section": "number"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "getitem",
+              "first_formatting": [],
+              "second_formatting": [],
+              "third_formatting": [],
+              "fourth_formatting": [],
+              "value": {
+                "type": "int",
+                "value": "0",
+                "section": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "get_fileext",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [
+      {
+        "type": "def_argument",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [],
+        "second_formatting": [],
+        "target": {
+          "type": "name",
+          "value": "filename"
+        },
+        "annotation": {},
+        "value": {}
+      }
+    ],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "file_from_path"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [
+                {
+                  "type": "endl",
+                  "value": "\n",
+                  "indent": "        ",
+                  "formatting": []
+                }
+              ],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "name",
+                    "value": "filename"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "rsplit"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""."",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {
+                    "type": "name",
+                    "value": "maxsplit"
+                  },
+                  "value": {
+                    "type": "int",
+                    "value": "1",
+                    "section": "number"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "getitem",
+              "first_formatting": [],
+              "second_formatting": [],
+              "third_formatting": [],
+              "fourth_formatting": [],
+              "value": {
+                "type": "int",
+                "value": "1",
+                "section": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "run_bash_cmd",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [
+      {
+        "type": "def_argument",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [],
+        "second_formatting": [],
+        "target": {
+          "type": "name",
+          "value": "cmd"
+        },
+        "annotation": {},
+        "value": {}
+      }
+    ],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "assignment",
+        "operator": "",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "target": {
+          "type": "name",
+          "value": "process"
+        },
+        "annotation": {},
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "subprocess"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "run"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [
+                {
+                  "type": "endl",
+                  "value": "\n",
+                  "indent": "        ",
+                  "formatting": []
+                }
+              ],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "name",
+                    "value": "cmd"
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {
+                    "type": "name",
+                    "value": "shell"
+                  },
+                  "value": {
+                    "type": "name",
+                    "value": "True"
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {
+                    "type": "name",
+                    "value": "stdout"
+                  },
+                  "value": {
+                    "type": "atomtrailers",
+                    "value": [
+                      {
+                        "type": "name",
+                        "value": "subprocess"
+                      },
+                      {
+                        "type": "dot",
+                        "first_formatting": [],
+                        "second_formatting": []
+                      },
+                      {
+                        "type": "name",
+                        "value": "PIPE"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {
+                    "type": "name",
+                    "value": "stderr"
+                  },
+                  "value": {
+                    "type": "atomtrailers",
+                    "value": [
+                      {
+                        "type": "name",
+                        "value": "subprocess"
+                      },
+                      {
+                        "type": "dot",
+                        "first_formatting": [],
+                        "second_formatting": []
+                      },
+                      {
+                        "type": "name",
+                        "value": "STDOUT"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {
+                    "type": "name",
+                    "value": "text"
+                  },
+                  "value": {
+                    "type": "name",
+                    "value": "True"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "print",
+        "formatting": [],
+        "destination_formatting": [],
+        "value": [
+          {
+            "type": "associative_parenthesis",
+            "first_formatting": [],
+            "second_formatting": [],
+            "third_formatting": [],
+            "fourth_formatting": [],
+            "value": {
+              "type": "atomtrailers",
+              "value": [
+                {
+                  "type": "name",
+                  "value": "process"
+                },
+                {
+                  "type": "dot",
+                  "first_formatting": [],
+                  "second_formatting": []
+                },
+                {
+                  "type": "name",
+                  "value": "stdout"
+                }
+              ]
+            }
+          }
+        ],
+        "destination": {}
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "process"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "stdout"
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "filter_alpha",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [
+      {
+        "type": "def_argument",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [],
+        "second_formatting": [],
+        "target": {
+          "type": "name",
+          "value": "string"
+        },
+        "annotation": {},
+        "value": {}
+      }
+    ],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "assignment",
+        "operator": "",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "target": {
+          "type": "name",
+          "value": "regex"
+        },
+        "annotation": {},
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "re"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "compile"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""[^a-zA-Z
+                    ]"",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "regex"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "sub"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": """",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "name",
+                    "value": "string"
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "set_cwd",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "atomtrailers",
+        "value": [
+          {
+            "type": "name",
+            "value": "os"
+          },
+          {
+            "type": "dot",
+            "first_formatting": [],
+            "second_formatting": []
+          },
+          {
+            "type": "name",
+            "value": "chdir"
+          },
+          {
+            "type": "call",
+            "first_formatting": [],
+            "second_formatting": [],
+            "value": [
+              {
+                "type": "call_argument",
+                "first_formatting": [],
+                "second_formatting": [],
+                "target": {},
+                "value": {
+                  "type": "atomtrailers",
+                  "value": [
+                    {
+                      "type": "name",
+                      "value": "os"
+                    },
+                    {
+                      "type": "dot",
+                      "first_formatting": [],
+                      "second_formatting": []
+                    },
+                    {
+                      "type": "name",
+                      "value": "getcwd"
+                    },
+                    {
+                      "type": "call",
+                      "first_formatting": [],
+                      "second_formatting": [],
+                      "value": [],
+                      "third_formatting": [],
+                      "fourth_formatting": []
+                    }
+                  ]
+                }
+              }
+            ],
+            "third_formatting": [],
+            "fourth_formatting": []
+          }
+        ]
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "cleanup_postdeploy",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "atomtrailers",
+        "value": [
+          {
+            "type": "name",
+            "value": "set_cwd"
+          },
+          {
+            "type": "call",
+            "first_formatting": [],
+            "second_formatting": [],
+            "value": [],
+            "third_formatting": [],
+            "fourth_formatting": []
+          }
+        ]
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "assignment",
+        "operator": "",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "target": {
+          "type": "name",
+          "value": "dir_contents"
+        },
+        "annotation": {},
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "os"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "listdir"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "atomtrailers",
+                    "value": [
+                      {
+                        "type": "name",
+                        "value": "os"
+                      },
+                      {
+                        "type": "dot",
+                        "first_formatting": [],
+                        "second_formatting": []
+                      },
+                      {
+                        "type": "name",
+                        "value": "getcwd"
+                      },
+                      {
+                        "type": "call",
+                        "first_formatting": [],
+                        "second_formatting": [],
+                        "value": [],
+                        "third_formatting": [],
+                        "fourth_formatting": []
+                      }
+                    ]
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "for",
+        "async": False,
+        "async_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "third_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "fourth_formatting": [],
+        "fifth_formatting": [],
+        "value": [
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "        ",
+            "formatting": []
+          },
+          {
+            "type": "ifelseblock",
+            "value": [
+              {
+                "type": "if",
+                "first_formatting": [
+                  {
+                    "type": "space",
+                    "value": " "
+                  }
+                ],
+                "second_formatting": [],
+                "third_formatting": [],
+                "value": [
+                  {
+                    "type": "endl",
+                    "value": "\n",
+                    "indent": "            ",
+                    "formatting": []
+                  },
+                  {
+                    "type": "ifelseblock",
+                    "value": [
+                      {
+                        "type": "if",
+                        "first_formatting": [
+                          {
+                            "type": "space",
+                            "value": " "
+                          }
+                        ],
+                        "second_formatting": [],
+                        "third_formatting": [],
+                        "value": [
+                          {
+                            "type": "endl",
+                            "value": "\n",
+                            "indent": "                ",
+                            "formatting": []
+                          },
+                          {
+                            "type": "atomtrailers",
+                            "value": [
+                              {
+                                "type": "name",
+                                "value": "os"
+                              },
+                              {
+                                "type": "dot",
+                                "first_formatting": [],
+                                "second_formatting": []
+                              },
+                              {
+                                "type": "name",
+                                "value": "remove"
+                              },
+                              {
+                                "type": "call",
+                                "first_formatting": [],
+                                "second_formatting": [],
+                                "value": [
+                                  {
+                                    "type": "call_argument",
+                                    "first_formatting": [],
+                                    "second_formatting": [],
+                                    "target": {},
+                                    "value": {
+                                      "type": "name",
+                                      "value": "item"
+                                    }
+                                  }
+                                ],
+                                "third_formatting": [],
+                                "fourth_formatting": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "endl",
+                            "value": "\n",
+                            "indent": "            ",
+                            "formatting": []
+                          }
+                        ],
+                        "test": {
+                          "type": "atomtrailers",
+                          "value": [
+                            {
+                              "type": "name",
+                              "value": "os"
+                            },
+                            {
+                              "type": "dot",
+                              "first_formatting": [],
+                              "second_formatting": []
+                            },
+                            {
+                              "type": "name",
+                              "value": "path"
+                            },
+                            {
+                              "type": "dot",
+                              "first_formatting": [],
+                              "second_formatting": []
+                            },
+                            {
+                              "type": "name",
+                              "value": "isfile"
+                            },
+                            {
+                              "type": "call",
+                              "first_formatting": [],
+                              "second_formatting": [],
+                              "value": [
+                                {
+                                  "type": "call_argument",
+                                  "first_formatting": [],
+                                  "second_formatting": [],
+                                  "target": {},
+                                  "value": {
+                                    "type": "name",
+                                    "value": "item"
+                                  }
+                                }
+                              ],
+                              "third_formatting": [],
+                              "fourth_formatting": []
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "elif",
+                        "first_formatting": [
+                          {
+                            "type": "space",
+                            "value": " "
+                          }
+                        ],
+                        "second_formatting": [],
+                        "third_formatting": [],
+                        "value": [
+                          {
+                            "type": "endl",
+                            "value": "\n",
+                            "indent": "                ",
+                            "formatting": []
+                          },
+                          {
+                            "type": "atomtrailers",
+                            "value": [
+                              {
+                                "type": "name",
+                                "value": "shutil"
+                              },
+                              {
+                                "type": "dot",
+                                "first_formatting": [],
+                                "second_formatting": []
+                              },
+                              {
+                                "type": "name",
+                                "value": "rmtree"
+                              },
+                              {
+                                "type": "call",
+                                "first_formatting": [],
+                                "second_formatting": [],
+                                "value": [
+                                  {
+                                    "type": "call_argument",
+                                    "first_formatting": [],
+                                    "second_formatting": [],
+                                    "target": {},
+                                    "value": {
+                                      "type": "name",
+                                      "value": "item"
+                                    }
+                                  }
+                                ],
+                                "third_formatting": [],
+                                "fourth_formatting": []
+                              }
+                            ]
+                          },
+                          {
+                            "type": "endl",
+                            "value": "\n",
+                            "indent": "",
+                            "formatting": []
+                          },
+                          {
+                            "type": "endl",
+                            "value": "\n",
+                            "indent": "",
+                            "formatting": []
+                          },
+                          {
+                            "type": "endl",
+                            "value": "\n",
+                            "indent": "",
+                            "formatting": []
+                          }
+                        ],
+                        "test": {
+                          "type": "atomtrailers",
+                          "value": [
+                            {
+                              "type": "name",
+                              "value": "os"
+                            },
+                            {
+                              "type": "dot",
+                              "first_formatting": [],
+                              "second_formatting": []
+                            },
+                            {
+                              "type": "name",
+                              "value": "path"
+                            },
+                            {
+                              "type": "dot",
+                              "first_formatting": [],
+                              "second_formatting": []
+                            },
+                            {
+                              "type": "name",
+                              "value": "isdir"
+                            },
+                            {
+                              "type": "call",
+                              "first_formatting": [],
+                              "second_formatting": [],
+                              "value": [
+                                {
+                                  "type": "call_argument",
+                                  "first_formatting": [],
+                                  "second_formatting": [],
+                                  "target": {},
+                                  "value": {
+                                    "type": "name",
+                                    "value": "item"
+                                  }
+                                }
+                              ],
+                              "third_formatting": [],
+                              "fourth_formatting": []
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "test": {
+                  "type": "boolean_operator",
+                  "value": "or",
+                  "first_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ],
+                  "first": {
+                    "type": "atomtrailers",
+                    "value": [
+                      {
+                        "type": "name",
+                        "value": "any"
+                      },
+                      {
+                        "type": "call",
+                        "first_formatting": [],
+                        "second_formatting": [],
+                        "value": [
+                          {
+                            "type": "call_argument",
+                            "first_formatting": [],
+                            "second_formatting": [],
+                            "target": {},
+                            "value": {
+                              "type": "list_comprehension",
+                              "first_formatting": [],
+                              "second_formatting": [],
+                              "generators": [
+                                {
+                                  "type": "comprehension_loop",
+                                  "first_formatting": [
+                                    {
+                                      "type": "space",
+                                      "value": " "
+                                    }
+                                  ],
+                                  "second_formatting": [
+                                    {
+                                      "type": "space",
+                                      "value": " "
+                                    }
+                                  ],
+                                  "third_formatting": [
+                                    {
+                                      "type": "space",
+                                      "value": " "
+                                    }
+                                  ],
+                                  "fourth_formatting": [
+                                    {
+                                      "type": "space",
+                                      "value": " "
+                                    }
+                                  ],
+                                  "ifs": [],
+                                  "iterator": {
+                                    "type": "name",
+                                    "value": "ext"
+                                  },
+                                  "target": {
+                                    "type": "name",
+                                    "value": "DATA_FILE_EXTS"
+                                  }
+                                }
+                              ],
+                              "third_formatting": [],
+                              "fourth_formatting": [],
+                              "result": {
+                                "type": "atomtrailers",
+                                "value": [
+                                  {
+                                    "type": "name",
+                                    "value": "item"
+                                  },
+                                  {
+                                    "type": "dot",
+                                    "first_formatting": [],
+                                    "second_formatting": []
+                                  },
+                                  {
+                                    "type": "name",
+                                    "value": "endswith"
+                                  },
+                                  {
+                                    "type": "call",
+                                    "first_formatting": [],
+                                    "second_formatting": [],
+                                    "value": [
+                                      {
+                                        "type": "call_argument",
+                                        "first_formatting": [],
+                                        "second_formatting": [],
+                                        "target": {},
+                                        "value": {
+                                          "type": "name",
+                                          "value": "ext"
+                                        }
+                                      }
+                                    ],
+                                    "third_formatting": [],
+                                    "fourth_formatting": []
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ],
+                        "third_formatting": [],
+                        "fourth_formatting": []
+                      }
+                    ]
+                  },
+                  "second": {
+                    "type": "boolean_operator",
+                    "value": "or",
+                    "first_formatting": [
+                      {
+                        "type": "space",
+                        "value": " "
+                      }
+                    ],
+                    "second_formatting": [
+                      {
+                        "type": "space",
+                        "value": " "
+                      }
+                    ],
+                    "first": {
+                      "type": "atomtrailers",
+                      "value": [
+                        {
+                          "type": "name",
+                          "value": "any"
+                        },
+                        {
+                          "type": "call",
+                          "first_formatting": [],
+                          "second_formatting": [],
+                          "value": [
+                            {
+                              "type": "call_argument",
+                              "first_formatting": [],
+                              "second_formatting": [],
+                              "target": {},
+                              "value": {
+                                "type": "list_comprehension",
+                                "first_formatting": [],
+                                "second_formatting": [],
+                                "generators": [
+                                  {
+                                    "type": "comprehension_loop",
+                                    "first_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "second_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "third_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "fourth_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "ifs": [],
+                                    "iterator": {
+                                      "type": "name",
+                                      "value": "ext"
+                                    },
+                                    "target": {
+                                      "type": "name",
+                                      "value": "MODEL_FILE_EXTS"
+                                    }
+                                  }
+                                ],
+                                "third_formatting": [],
+                                "fourth_formatting": [],
+                                "result": {
+                                  "type": "atomtrailers",
+                                  "value": [
+                                    {
+                                      "type": "name",
+                                      "value": "item"
+                                    },
+                                    {
+                                      "type": "dot",
+                                      "first_formatting": [],
+                                      "second_formatting": []
+                                    },
+                                    {
+                                      "type": "name",
+                                      "value": "endswith"
+                                    },
+                                    {
+                                      "type": "call",
+                                      "first_formatting": [],
+                                      "second_formatting": [],
+                                      "value": [
+                                        {
+                                          "type": "call_argument",
+                                          "first_formatting": [],
+                                          "second_formatting": [],
+                                          "target": {},
+                                          "value": {
+                                            "type": "name",
+                                            "value": "ext"
+                                          }
+                                        }
+                                      ],
+                                      "third_formatting": [],
+                                      "fourth_formatting": []
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "third_formatting": [],
+                          "fourth_formatting": []
+                        }
+                      ]
+                    },
+                    "second": {
+                      "type": "atomtrailers",
+                      "value": [
+                        {
+                          "type": "name",
+                          "value": "any"
+                        },
+                        {
+                          "type": "call",
+                          "first_formatting": [],
+                          "second_formatting": [],
+                          "value": [
+                            {
+                              "type": "call_argument",
+                              "first_formatting": [],
+                              "second_formatting": [],
+                              "target": {},
+                              "value": {
+                                "type": "list_comprehension",
+                                "first_formatting": [],
+                                "second_formatting": [],
+                                "generators": [
+                                  {
+                                    "type": "comprehension_loop",
+                                    "first_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "second_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "third_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "fourth_formatting": [
+                                      {
+                                        "type": "space",
+                                        "value": " "
+                                      }
+                                    ],
+                                    "ifs": [],
+                                    "iterator": {
+                                      "type": "name",
+                                      "value": "ext"
+                                    },
+                                    "target": {
+                                      "type": "name",
+                                      "value": "INFRA_FILE_EXTS"
+                                    }
+                                  }
+                                ],
+                                "third_formatting": [],
+                                "fourth_formatting": [],
+                                "result": {
+                                  "type": "atomtrailers",
+                                  "value": [
+                                    {
+                                      "type": "name",
+                                      "value": "item"
+                                    },
+                                    {
+                                      "type": "dot",
+                                      "first_formatting": [],
+                                      "second_formatting": []
+                                    },
+                                    {
+                                      "type": "name",
+                                      "value": "endswith"
+                                    },
+                                    {
+                                      "type": "call",
+                                      "first_formatting": [],
+                                      "second_formatting": [],
+                                      "value": [
+                                        {
+                                          "type": "call_argument",
+                                          "first_formatting": [],
+                                          "second_formatting": [],
+                                          "target": {},
+                                          "value": {
+                                            "type": "name",
+                                            "value": "ext"
+                                          }
+                                        }
+                                      ],
+                                      "third_formatting": [],
+                                      "fourth_formatting": []
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "third_formatting": [],
+                          "fourth_formatting": []
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "iterator": {
+          "type": "name",
+          "value": "item"
+        },
+        "target": {
+          "type": "name",
+          "value": "dir_contents"
+        },
+        "else": {}
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "get_date_for_id",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "str"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "atomtrailers",
+                    "value": [
+                      {
+                        "type": "name",
+                        "value": "datetime"
+                      },
+                      {
+                        "type": "dot",
+                        "first_formatting": [],
+                        "second_formatting": []
+                      },
+                      {
+                        "type": "name",
+                        "value": "now"
+                      },
+                      {
+                        "type": "call",
+                        "first_formatting": [],
+                        "second_formatting": [],
+                        "value": [],
+                        "third_formatting": [],
+                        "fourth_formatting": []
+                      }
+                    ]
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "replace"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [
+                {
+                  "type": "endl",
+                  "value": "\n",
+                  "indent": "        ",
+                  "formatting": []
+                }
+              ],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""."",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""-"",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "replace"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": "": "",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""-"",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "replace"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": "" "",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                },
+                {
+                  "type": "comma",
+                  "first_formatting": [],
+                  "second_formatting": [
+                    {
+                      "type": "space",
+                      "value": " "
+                    }
+                  ]
+                },
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "string",
+                    "value": ""-"",
+                    "first_formatting": [],
+                    "second_formatting": []
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "get_train_dir",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "atomtrailers",
+        "value": [
+          {
+            "type": "name",
+            "value": "set_cwd"
+          },
+          {
+            "type": "call",
+            "first_formatting": [],
+            "second_formatting": [],
+            "value": [],
+            "third_formatting": [],
+            "fourth_formatting": []
+          }
+        ]
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "list"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [
+                {
+                  "type": "call_argument",
+                  "first_formatting": [],
+                  "second_formatting": [],
+                  "target": {},
+                  "value": {
+                    "type": "atomtrailers",
+                    "value": [
+                      {
+                        "type": "name",
+                        "value": "filter"
+                      },
+                      {
+                        "type": "call",
+                        "first_formatting": [],
+                        "second_formatting": [],
+                        "value": [
+                          {
+                            "type": "call_argument",
+                            "first_formatting": [],
+                            "second_formatting": [],
+                            "target": {},
+                            "value": {
+                              "type": "lambda",
+                              "first_formatting": [
+                                {
+                                  "type": "space",
+                                  "value": " "
+                                }
+                              ],
+                              "arguments": [
+                                {
+                                  "type": "def_argument",
+                                  "annotation_first_formatting": [],
+                                  "annotation_second_formatting": [],
+                                  "first_formatting": [],
+                                  "second_formatting": [],
+                                  "target": {
+                                    "type": "name",
+                                    "value": "path"
+                                  },
+                                  "annotation": {},
+                                  "value": {}
+                                }
+                              ],
+                              "second_formatting": [],
+                              "third_formatting": [
+                                {
+                                  "type": "space",
+                                  "value": " "
+                                }
+                              ],
+                              "value": {
+                                "type": "atomtrailers",
+                                "value": [
+                                  {
+                                    "type": "name",
+                                    "value": "os"
+                                  },
+                                  {
+                                    "type": "dot",
+                                    "first_formatting": [],
+                                    "second_formatting": []
+                                  },
+                                  {
+                                    "type": "name",
+                                    "value": "path"
+                                  },
+                                  {
+                                    "type": "dot",
+                                    "first_formatting": [],
+                                    "second_formatting": []
+                                  },
+                                  {
+                                    "type": "name",
+                                    "value": "isdir"
+                                  },
+                                  {
+                                    "type": "call",
+                                    "first_formatting": [],
+                                    "second_formatting": [
+                                      {
+                                        "type": "endl",
+                                        "value": "\n",
+                                        "indent": "        ",
+                                        "formatting": []
+                                      }
+                                    ],
+                                    "value": [
+                                      {
+                                        "type": "call_argument",
+                                        "first_formatting": [],
+                                        "second_formatting": [],
+                                        "target": {},
+                                        "value": {
+                                          "type": "name",
+                                          "value": "path"
+                                        }
+                                      }
+                                    ],
+                                    "third_formatting": [],
+                                    "fourth_formatting": []
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "type": "comma",
+                            "first_formatting": [],
+                            "second_formatting": [
+                              {
+                                "type": "space",
+                                "value": " "
+                              }
+                            ]
+                          },
+                          {
+                            "type": "call_argument",
+                            "first_formatting": [],
+                            "second_formatting": [],
+                            "target": {},
+                            "value": {
+                              "type": "atomtrailers",
+                              "value": [
+                                {
+                                  "type": "name",
+                                  "value": "glob"
+                                },
+                                {
+                                  "type": "dot",
+                                  "first_formatting": [],
+                                  "second_formatting": []
+                                },
+                                {
+                                  "type": "name",
+                                  "value": "glob"
+                                },
+                                {
+                                  "type": "call",
+                                  "first_formatting": [],
+                                  "second_formatting": [],
+                                  "value": [
+                                    {
+                                      "type": "call_argument",
+                                      "first_formatting": [],
+                                      "second_formatting": [],
+                                      "target": {},
+                                      "value": {
+                                        "type": "atomtrailers",
+                                        "value": [
+                                          {
+                                            "type": "string",
+                                            "value": ""{}*"",
+                                            "first_formatting": [],
+                                            "second_formatting": []
+                                          },
+                                          {
+                                            "type": "dot",
+                                            "first_formatting": [],
+                                            "second_formatting": []
+                                          },
+                                          {
+                                            "type": "name",
+                                            "value": "format"
+                                          },
+                                          {
+                                            "type": "call",
+                                            "first_formatting": [],
+                                            "second_formatting": [],
+                                            "value": [
+                                              {
+                                                "type": "call_argument",
+                                                "first_formatting": [],
+                                                "second_formatting": [],
+                                                "target": {},
+                                                "value": {
+                                                  "type": "name",
+                                                  "value": "TRAIN_DIR_PREFIX"
+                                                }
+                                              }
+                                            ],
+                                            "third_formatting": [],
+                                            "fourth_formatting": []
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  "third_formatting": [],
+                                  "fourth_formatting": []
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "third_formatting": [],
+                        "fourth_formatting": []
+                      }
+                    ]
+                  }
+                }
+              ],
+              "third_formatting": [],
+              "fourth_formatting": []
+            },
+            {
+              "type": "getitem",
+              "first_formatting": [],
+              "second_formatting": [],
+              "third_formatting": [],
+              "fourth_formatting": [],
+              "value": {
+                "type": "int",
+                "value": "0",
+                "section": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  },
+  {
+    "type": "def",
+    "async": False,
+    "name": "arg_dict_to_list",
+    "decorators": [],
+    "async_formatting": [],
+    "first_formatting": [
+      {
+        "type": "space",
+        "value": " "
+      }
+    ],
+    "second_formatting": [],
+    "third_formatting": [],
+    "arguments": [
+      {
+        "type": "def_argument",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [],
+        "second_formatting": [],
+        "target": {
+          "type": "name",
+          "value": "dictionary"
+        },
+        "annotation": {},
+        "value": {}
+      }
+    ],
+    "fourth_formatting": [],
+    "return_annotation_first_formatting": [],
+    "return_annotation_second_formatting": [],
+    "fifth_formatting": [],
+    "sixth_formatting": [],
+    "value": [
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "string",
+        "value": """"\n    hello\n    world\n    """",
+        "first_formatting": [],
+        "second_formatting": []
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "assignment",
+        "operator": "",
+        "annotation_first_formatting": [],
+        "annotation_second_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "target": {
+          "type": "name",
+          "value": "arg_list"
+        },
+        "annotation": {},
+        "value": {
+          "type": "list",
+          "first_formatting": [],
+          "second_formatting": [],
+          "value": [],
+          "third_formatting": [],
+          "fourth_formatting": []
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "    ",
+        "formatting": []
+      },
+      {
+        "type": "for",
+        "async": False,
+        "async_formatting": [],
+        "first_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "second_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "third_formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "fourth_formatting": [],
+        "fifth_formatting": [],
+        "value": [
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "        ",
+            "formatting": []
+          },
+          {
+            "type": "atomtrailers",
+            "value": [
+              {
+                "type": "name",
+                "value": "arg_list"
+              },
+              {
+                "type": "dot",
+                "first_formatting": [],
+                "second_formatting": []
+              },
+              {
+                "type": "name",
+                "value": "extend"
+              },
+              {
+                "type": "call",
+                "first_formatting": [],
+                "second_formatting": [],
+                "value": [
+                  {
+                    "type": "call_argument",
+                    "first_formatting": [],
+                    "second_formatting": [],
+                    "target": {},
+                    "value": {
+                      "type": "list",
+                      "first_formatting": [],
+                      "second_formatting": [],
+                      "value": [
+                        {
+                          "type": "atomtrailers",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": ""--{}"",
+                              "first_formatting": [],
+                              "second_formatting": []
+                            },
+                            {
+                              "type": "dot",
+                              "first_formatting": [],
+                              "second_formatting": []
+                            },
+                            {
+                              "type": "name",
+                              "value": "format"
+                            },
+                            {
+                              "type": "call",
+                              "first_formatting": [],
+                              "second_formatting": [],
+                              "value": [
+                                {
+                                  "type": "call_argument",
+                                  "first_formatting": [],
+                                  "second_formatting": [],
+                                  "target": {},
+                                  "value": {
+                                    "type": "name",
+                                    "value": "key"
+                                  }
+                                }
+                              ],
+                              "third_formatting": [],
+                              "fourth_formatting": []
+                            }
+                          ]
+                        },
+                        {
+                          "type": "comma",
+                          "first_formatting": [],
+                          "second_formatting": [
+                            {
+                              "type": "space",
+                              "value": " "
+                            }
+                          ]
+                        },
+                        {
+                          "type": "name",
+                          "value": "value"
+                        }
+                      ],
+                      "third_formatting": [],
+                      "fourth_formatting": []
+                    }
+                  }
+                ],
+                "third_formatting": [],
+                "fourth_formatting": []
+              }
+            ]
+          },
+          {
+            "type": "endl",
+            "value": "\n",
+            "indent": "    ",
+            "formatting": []
+          }
+        ],
+        "iterator": {
+          "type": "tuple",
+          "with_parenthesis": False,
+          "first_formatting": [],
+          "second_formatting": [],
+          "value": [
+            {
+              "type": "name",
+              "value": "key"
+            },
+            {
+              "type": "comma",
+              "first_formatting": [],
+              "second_formatting": [
+                {
+                  "type": "space",
+                  "value": " "
+                }
+              ]
+            },
+            {
+              "type": "name",
+              "value": "value"
+            }
+          ],
+          "third_formatting": [],
+          "fourth_formatting": []
+        },
+        "target": {
+          "type": "atomtrailers",
+          "value": [
+            {
+              "type": "name",
+              "value": "dictionary"
+            },
+            {
+              "type": "dot",
+              "first_formatting": [],
+              "second_formatting": []
+            },
+            {
+              "type": "name",
+              "value": "items"
+            },
+            {
+              "type": "call",
+              "first_formatting": [],
+              "second_formatting": [],
+              "value": [],
+              "third_formatting": [],
+              "fourth_formatting": []
+            }
+          ]
+        },
+        "else": {}
+      },
+      {
+        "type": "return",
+        "formatting": [
+          {
+            "type": "space",
+            "value": " "
+          }
+        ],
+        "value": {
+          "type": "name",
+          "value": "arg_dict_to_list"
+        }
+      },
+      {
+        "type": "endl",
+        "value": "\n",
+        "indent": "",
+        "formatting": []
+      }
+    ],
+    "return_annotation": {}
+  }
+]
