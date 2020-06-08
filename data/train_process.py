@@ -1,40 +1,48 @@
 import os
 import ast
 import csv
+import json
+from pathlib import Path
 
-from constants import lang_dir, filtered_dir, sbt_dir
-from utilities import get_filename_from_path
+from constants import lang_dir, filtered_dir, ast_dir, all_data_file
+from utilities import get_filename_noext
+from astdataextractor import ASTDataExtractor
 
 import ray
+from tqdm import tqdm
 
 
-def save_methods_data(filename, methods_data):
-    sbt_file_path = os.path.join(sbt_dir, f'{filename}.csv')
-    with open(sbt_file_path, 'w') as csvfile:
-        spamwriter = csv.writer(csvfile, delimiter=',')
-        for method_data in methods_data:
-            spamwriter.writerow(method_data)
-
-
-def ast_to_sbt(node):
-    return ''
+def create_relevant_dirs():
+    try:
+        if not os.path.exists(filtered_dir):
+            Path(filtered_dir).mkdir(parents=True)
+        if not os.path.exists(ast_dir):
+            Path(ast_dir).mkdir(parents=True)
+    except Exception as e:
+        print(e)
 
 
 @ray.remote
 def process_file(a_file):
-    filename = get_filename_from_path(a_file)
-    tree = ast.parse(a_file)
-    methods_data = []
-    for node in ast.walk(tree):  # bfs traversal
-        if isinstance(node, ast.FunctionDef) and ast.get_docstring(node):
-            docstring = ast.get_docstring(node)
-            sbt = ast_to_sbt(node)
-            # TODO: will need to check if docstring ''' strings need to be removed or not
-            methods_data.append([docstring, sbt])
-    save_methods_data(filename, methods_data)
+    ast_save_path = os.path.join(ast_dir, f'{get_filename_noext(a_file)}.json')
+    ast_extractor = ASTDataExtractor(a_file, ast_save_path)
+    ast_extractor.visit(ast_extractor.ast_object)
+    ast_extractor.save_ast()
+
+
+def combine_data(ast_dir):
+    for a_file in tqdm(os.scandir(ast_dir)):
+        json_data = json.load(open(a_file.path))
+        for _, data in json_data.items():
+            with open(all_data_file, 'a+') as csvfile:
+                csv_writer = csv.writer(csvfile, delimiter=',')
+                csv_writer.writerow([data["docstring"], data["ast"]])
 
 
 if __name__ == '__main__':
     ray.init()
-    futures = [process_file(a_file) for a_file in os.listdir(filtered_dir)]
+    create_relevant_dirs()
+    futures = [process_file.remote(a_file.path)
+               for a_file in os.scandir(filtered_dir)]
     ray.get(futures)
+    combine_data(ast_dir)
