@@ -6,3 +6,6 @@ filtered_dir = os.path.join(lang_dir, 'filtered')
 ast_dir = os.path.join(lang_dir, 'ast')
 
 all_data_file = os.path.join(os.getcwd(), 'alldata.csv')
+
+docstring_prefix = 'docstring_'
+ast_prefix = 'ast_'

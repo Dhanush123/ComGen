@@ -106,5 +106,6 @@ if __name__ == '__main__':
     print_rate_limit()
     futures = [get_and_filter_repo_files.remote(repo) for repo in repos]
     ray.get(futures)
+    ray.shutdown()
     print_rate_limit()
     final_steps(raw_dir, filtered_dir)

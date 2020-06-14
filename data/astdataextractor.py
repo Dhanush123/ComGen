@@ -1,34 +1,32 @@
 import sys
 import ast
 import io
-import json
 
 import os
 
 
 class ASTDataExtractor(ast.NodeVisitor):
-    ast_file_path = ''
-    single_function_ast_str = ''
-    ast_object = None
-    comment_ast_pairs = {}
 
-    def __init__(self, python_file_path, ast_file_path):
+    def __init__(self, python_file_path, docstring_file_path, ast_file_path):
+        self.docstring_file_path = docstring_file_path
         self.ast_file_path = ast_file_path
         self.ast_object = ast.parse(open(python_file_path).read())
+        self.single_function_ast_str = ''
+        self.function_docstring = ''
 
     def visit_Load(self, node):
         # load field is too common & generic -> doesn't provide value to include
         pass
 
     def visit_FunctionDef(self, node):
-        function_docstring = ast.get_docstring(node)
+        # only want docstrings that are in ascii so I can read + simplifies project
+        self.function_docstring = ast.get_docstring(node).encode('ascii')
         # for training set, only want functions that have docstring since it's the training label
         if function_docstring:
             self.node_visit(node)
-            print(self.single_function_ast_str)
-            with open(self.ast_file_path, 'w+') as ast_write_file:
-                self.comment_ast_pairs[node.name] = {
-                    'docstring': function_docstring, 'ast': self.single_function_ast_str}
+            self.single_function_ast_str = self.single_function_ast_str.encode(
+                'ascii')
+            self.save_data()
         self.single_function_ast_str = ''
 
     def node_to_str(self, node):
@@ -53,5 +51,7 @@ class ASTDataExtractor(ast.NodeVisitor):
         self.single_function_ast_str += ')'
 
     def save_ast(self):
-        with open(self.ast_file_path, 'w+') as json_file:
-            json.dump(self.comment_ast_pairs, json_file)
+        with open(self.docstring_file_path, 'w+') as docstring_file:
+            docstring_file.write(self.function_docstring, docstring_file)
+        with open(self.ast_file_path, 'w+') as ast_file:
+            ast_file.write(self.single_function_ast_str, ast_file)

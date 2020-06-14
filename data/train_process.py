@@ -3,9 +3,10 @@ import ast
 import csv
 import json
 from pathlib import Path
+import glob
 
-from constants import lang_dir, filtered_dir, ast_dir, all_data_file
-from utilities import get_filename_noext
+from constants import lang_dir, filtered_dir, ast_dir, all_data_file, docstring_prefix, ast_prefix
+from utilities import get_filename_noext, get_filename_from_path
 from astdataextractor import ASTDataExtractor
 
 import ray
@@ -24,19 +25,38 @@ def create_relevant_dirs():
 
 @ray.remote
 def process_file(a_file):
-    ast_save_path = os.path.join(ast_dir, f'{get_filename_noext(a_file)}.json')
-    ast_extractor = ASTDataExtractor(a_file, ast_save_path)
-    ast_extractor.visit(ast_extractor.ast_object)
-    ast_extractor.save_ast()
+    try:
+        # to avoid path name problems, removing spaces
+        filename = get_filename_noext(a_file).replace(' ', '')
+        parsed_file_dir = os.path.join(ast_dir, filename)
+        docstring_save_path = os.path.join(
+            parsed_file_dir, f'{docstring_prefix}{filename}.txt')
+        ast_save_path = os.path.join(ast_dir, f'{ast_prefix}{filename}.txt')
+        ast_extractor = ASTDataExtractor(
+            a_file, docstring_save_path, ast_save_path)
+        ast_extractor.visit(ast_extractor.ast_object)
+        print(f'Saved and processed {get_filename_from_path(a_file)}')
+    except (UnicodeEncodeError, SyntaxError):
+        # may find python 2 files and non-english comments
+        pass
 
 
 def combine_data(ast_dir):
-    for a_file in tqdm(os.scandir(ast_dir)):
-        json_data = json.load(open(a_file.path))
-        for _, data in json_data.items():
-            with open(all_data_file, 'a+') as csvfile:
-                csv_writer = csv.writer(csvfile, delimiter=',')
-                csv_writer.writerow([data["docstring"], data["ast"]])
+    for item in tqdm(os.scandir(ast_dir)):
+        if os.path.isdir(item.path):
+            docstring_file = glob.glob(f'{item.path}/{docstring_prefix}*')[0]
+            ast_file = glob.glob(f'{item.path}/{ast_prefix}*')[0]
+            try:
+                with open(docstring_file, 'r') as docstring_file:
+                    docstring_data = docstring_file.read()
+                with open(ast_file, 'r') as docstring_file:
+                    ast_data = docstring_file.read()
+                with open(all_data_file, 'a+') as csvfile:
+                    csv_writer = csv.writer(csvfile, delimiter=',')
+                    csv_writer.writerow([docstring_data, ast_data])
+            except Exception as e:
+                print(
+                    f'Problem with extracting and saving data from: {docstring_file},{ast_file}\n{e}')
 
 
 if __name__ == '__main__':
@@ -45,4 +65,5 @@ if __name__ == '__main__':
     futures = [process_file.remote(a_file.path)
                for a_file in os.scandir(filtered_dir)]
     ray.get(futures)
+    ray.shutdown()
     combine_data(ast_dir)
