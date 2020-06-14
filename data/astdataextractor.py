@@ -19,15 +19,22 @@ class ASTDataExtractor(ast.NodeVisitor):
         pass
 
     def visit_FunctionDef(self, node):
-        # only want docstrings that are in ascii so I can read + simplifies project
-        self.function_docstring = ast.get_docstring(node).encode('ascii')
-        # for training set, only want functions that have docstring since it's the training label
-        if function_docstring:
-            self.node_visit(node)
-            self.single_function_ast_str = self.single_function_ast_str.encode(
-                'ascii')
-            self.save_data()
-        self.single_function_ast_str = ''
+        try:
+            # only want docstrings that are in ascii so I can read + simplifies project
+            temp_docstring = ast.get_docstring(node)
+            if temp_docstring:
+                self.function_docstring = temp_docstring.encode(
+                    'ascii').decode('utf-8')
+            # for training set, only want functions that have docstring since it's the training label
+            if self.function_docstring:
+                self.node_visit(node)
+                self.single_function_ast_str = self.single_function_ast_str.encode(
+                    'ascii').decode('utf-8')
+                if self.single_function_ast_str:
+                    self.save_data()
+            self.single_function_ast_str = ''
+        except (UnicodeDecodeError, UnicodeEncodeError):
+            pass
 
     def node_to_str(self, node):
         if isinstance(node, ast.AST):
@@ -50,8 +57,8 @@ class ASTDataExtractor(ast.NodeVisitor):
                 self.node_visit(value, level=level+1)
         self.single_function_ast_str += ')'
 
-    def save_ast(self):
+    def save_data(self):
         with open(self.docstring_file_path, 'w+') as docstring_file:
-            docstring_file.write(self.function_docstring, docstring_file)
+            docstring_file.write(self.function_docstring)
         with open(self.ast_file_path, 'w+') as ast_file:
-            ast_file.write(self.single_function_ast_str, ast_file)
+            ast_file.write(self.single_function_ast_str)

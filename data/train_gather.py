@@ -46,6 +46,7 @@ def get_mostpopular_repos(max_repos=100):
     repos = []
     repositories = github.search_repositories(
         query='language:Python', sort='stars')
+    print('Collecting GitHub repos metadata:')
     for i, repo in tqdm(zip(range(max_repos), repositories)):
         repos.append(repo)
         save_repo_data(repo)
@@ -106,6 +107,7 @@ if __name__ == '__main__':
     print_rate_limit()
     futures = [get_and_filter_repo_files.remote(repo) for repo in repos]
     ray.get(futures)
+    print("Shutting down Ray...")
     ray.shutdown()
     print_rate_limit()
     final_steps(raw_dir, filtered_dir)
