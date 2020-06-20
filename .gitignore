@@ -127,6 +127,4 @@ data/.DS_Store
 .vscode/settings.json
 .DS_Store
 
-/data/Java
-/data/Python
-data/alldata.csv
+comgen/values/Python
