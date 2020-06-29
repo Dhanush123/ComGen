@@ -41,16 +41,23 @@ class ASTDataExtractor(ast.NodeVisitor):
             fields_list = [self.node_to_str(val).replace("'", "") for name, val in ast.iter_fields(
                 node) if name in ('name', 'attr', 'id', 'arg')]
             str_fields_list = f"{' '.join(fields_list)}" if fields_list else ""
-            rv = f' ( {node.__class__.__name__}'
-            if str_fields_list:
+            # rv = f'( {node.__class__.__name__}'
+            # if str_fields_list:
+            #     rv += f' {str_fields_list}'
+            # rv += ' )'
+            # return rv
+            rv = node.__class__.__name__ if node.__class__.__name__ not in (
+                'FunctionDef', 'Load', 'arguments') else ''
+            if rv and str_fields_list:
                 rv += f' {str_fields_list}'
-            rv += ' ) '
             return rv
         else:
             return repr(node)
 
     def node_visit(self, node):
-        self.single_function_ast_str += f" ( {self.node_to_str(node)}"
+        node_str = self.node_to_str(node)
+        if node_str:
+            self.single_function_ast_str += f"{node_str} "
         for field, value in ast.iter_fields(node):
             if isinstance(value, list):
                 for item in value:
@@ -58,7 +65,7 @@ class ASTDataExtractor(ast.NodeVisitor):
                         self.node_visit(item)
             elif isinstance(value, ast.AST):
                 self.node_visit(value)
-        self.single_function_ast_str += ' ) '
+        # self.single_function_ast_str += ' )'
 
     def save_data(self):
         with open(self.docstring_file_path, 'w+') as docstring_file:

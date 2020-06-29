@@ -1,22 +1,16 @@
 import csv
 
-# from .modelconstants import full_dataset_path, docstring_header, ast_header
-from ..data import dataconstants
-
-if __name__ == '__main__':
-    print(dataconstants.ast_dir)
+from comgen.constants import docstring_header, ast_header, full_dataset_path
 
 
-def create_dataset():
-    return "SS"
-    # with open(full_dataset_path, newline='') as dataset:
-    #     reader = csv.DictReader(csvfile)
-    #     for row in reader:
-    #         print(row['first_name'], row['last_name'])
-
-    # lines = io.open(path, encoding='UTF-8').read().strip().split('\n')
-
-    # word_pairs = [[preprocess_sentence(w) for w in l.split(
-    #     '\t')] for l in lines[:num_examples]]
-
-    # return zip(*word_pairs)
+def load_dataset():
+    docstring_data, ast_data = [], []
+    try:
+        with open(full_dataset_path, newline='') as dataset:
+            reader = csv.DictReader(dataset)
+            for row in reader:
+                docstring_data.append(row[docstring_header])
+                ast_data.append(row[ast_header])
+        return docstring_data, ast_data
+    except Exception as e:
+        print('Error loading dataset', e)

@@ -6,9 +6,9 @@ lang_dir = os.path.join(values_dir, 'Python')
 
 raw_dir = os.path.join(lang_dir, 'raw')
 filtered_dir = os.path.join(lang_dir, 'filtered')
-ast_dir = os.path.join(lang_dir, 'ast')
+ast_dir = os.path.join(lang_dir, 'ast2')
 
-full_dataset_path = os.path.join(values_dir, 'alldata.csv')
+full_dataset_path = os.path.join(values_dir, 'alldata2.csv')
 
 docstring_prefix = 'docstring_'
 ast_prefix = 'ast_'
