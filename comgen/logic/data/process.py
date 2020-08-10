@@ -39,8 +39,8 @@ def process_file(a_file):
             a_file, docstring_save_path, ast_save_path)
         ast_extractor.visit(ast_extractor.ast_object)
         print(f'Saved and processed {get_filename_from_path(a_file)}')
-    except (SyntaxError, IsADirectoryError, UnicodeDecodeError, UnicodeEncodeError):
-        # may find python 2 files and non-english comments
+    except (SyntaxError, IsADirectoryError, UnicodeDecodeError, UnicodeEncodeError, RecursionError):
+        # may find python 2 files, non-english comments, very long methods
         pass
 
 

@@ -10,17 +10,30 @@ import shutil
 from pathlib import Path
 import time
 import sys
+import csv
 
-from comgen.constants import lang_dir, raw_dir, filtered_dir, repos_path
+from comgen.constants import lang_dir, raw_dir, filtered_dir, repos_path, name_column, archive_url_column
 from comgen.utilities import get_filename_from_path
 
 import ray
 from tqdm import tqdm
 
 
-def print_rate_limit(github_client):
-    rate_limit = github_client.get_rate_limit()
-    print(f'rate limit (core/search): {rate_limit.core}/{rate_limit.search}')
+def print_rate_limit(github_username, github_access_token):
+    github_name = os.getenv('GITHUB_NAME')
+    rate_cmd = f'curl -u \"{github_username}:{github_access_token}\" -i https://api.github.com/users/{github_name}'
+    subprocess.run(rate_cmd, shell=True, text=True)
+
+
+def get_repo_info(repos_file_path):
+    repos_info = []
+    with open(repos_file_path, 'r') as repos_file:
+        csv_reader = csv.DictReader(repos_file)
+        for row in csv_reader:
+            # remove repo owner from name for safer folder creation with name
+            repo_name_only = row[name_column].rpartition('/')[-1]
+            repos_info.append((repo_name_only, row[archive_url_column]))
+    return repos_info
 
 
 def create_relevant_dirs():
@@ -33,33 +46,19 @@ def create_relevant_dirs():
         print(e)
 
 
-def get_mostpopular_repos(github_client, max_repos=100):
-    def save_repo_data(repo):
-        with open(repos_path, 'a+') as repo_file:
-            repo_file.write(
-                f'{repo.full_name},{repo.html_url},{repo.stargazers_count}\n')
-    repos = []
-    repositories = github_client.search_repositories(
-        query='language:Python', sort='stars')
-    print('Collecting GitHub repos metadata:')
-    for i, repo in tqdm(zip(range(max_repos), repositories)):
-        repos.append(repo)
-        save_repo_data(repo)
-    return repos
-
-
 @ray.remote
-def get_and_filter_repo_files(repo, github_username, github_access_token):
+def get_and_filter_repo_files(repo_name, repo_archive_url, github_username, github_access_token):
     def rand_folder_name_gen():
         return ''.join(random.choices(string.ascii_letters + string.digits, k=16))
 
-    download_url = repo.archive_url.replace(
+    # Assuming repo has master branch, which should be true for most repos. Okay with skipping a few repos.
+    download_url = repo_archive_url.replace(
         '{archive_format}{/ref}', 'zipball/master'
     )
 
-    repo_zip_path = os.path.join(raw_dir, f'{repo.name}.zip')
+    repo_zip_path = os.path.join(raw_dir, f'{repo_name}.zip')
     repo_unzip_path = os.path.join(raw_dir, rand_folder_name_gen())
-    curl_cmd = f'curl -u \"{github_username}:{github_access_token}\" -Lk {download_url} -o {repo_zip_path}'
+    download_cmd = f'curl -u \"{github_username}:{github_access_token}\" -Lk {download_url} -o {repo_zip_path}'
 
     try:
         Path(repo_unzip_path).mkdir(parents=True)
@@ -69,14 +68,14 @@ def get_and_filter_repo_files(repo, github_username, github_access_token):
     try:
         # to not spam github with all requests at once
         time.sleep(random.randint(1, 5))
-        subprocess.run(curl_cmd, shell=True, text=True)
+        subprocess.run(download_cmd, shell=True, text=True)
 
         with zipfile.ZipFile(repo_zip_path) as repo_zip:
             repo_zip.extractall(repo_unzip_path)
 
         matching_files = configfiles = glob.glob(
             f'{repo_unzip_path}/**/*.py', recursive=True)
-        print(f'{len(matching_files)} matching files found in {repo.full_name} repo')
+        print(f'{len(matching_files)} matching files found in {repo_name} repo')
         for old_file_path in tqdm(matching_files):
             new_file_path = os.path.join(
                 filtered_dir, get_filename_from_path(old_file_path))

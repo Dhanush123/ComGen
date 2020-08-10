@@ -128,4 +128,4 @@ data/.DS_Store
 .DS_Store
 
 comgen/values/Python/
-comgen/values/alldata2.csv
+comgen/values/alldata-*.csv
