@@ -1,34 +1,40 @@
 import sys
 import ast
 import io
-
 import os
+import csv
+
+from comgen.constants import docstring_header, ast_header
 
 
 class ASTDataExtractor(ast.NodeVisitor):
 
-    def __init__(self, python_file_path, docstring_file_path, ast_file_path):
-        self.docstring_file_path = docstring_file_path
-        self.ast_file_path = ast_file_path
+    def __init__(self, python_file_path, docstring_ast_file_path):
         self.ast_object = ast.parse(open(python_file_path).read())
+        self.docstring_ast_file_path = docstring_ast_file_path
         self.single_function_ast_str = ''
-        self.function_docstring = ''
+        self.single_function_docstring = ''
+
+        with open(self.docstring_ast_file_path, 'a+') as docstring_ast_file:
+            csv_writer = csv.writer(docstring_ast_file, delimiter=',')
+            csv_writer.writerow([docstring_header, ast_header])
 
     def visit_FunctionDef(self, node):
         try:
             # only want docstrings that are in ascii so I can read + simplifies project
             temp_docstring = ast.get_docstring(node)
             if temp_docstring:
-                self.function_docstring = temp_docstring.encode(
+                self.single_function_docstring = temp_docstring.encode(
                     'ascii').decode('utf-8')
             # for training set, only want functions that have docstring since it's the training label
-            if self.function_docstring:
+            if len(self.single_function_docstring):
                 self.node_visit(node)
                 self.single_function_ast_str = self.single_function_ast_str.encode(
                     'ascii').decode('utf-8')
                 if self.single_function_ast_str:
                     self.save_data()
             self.single_function_ast_str = ''
+            self.single_function_docstring = ''
         except (UnicodeDecodeError, UnicodeEncodeError):
             pass
 
@@ -78,6 +84,8 @@ class ASTDataExtractor(ast.NodeVisitor):
 
     def node_visit(self, node):
         node_str = self.node_to_str(node).strip()
+        if node_str:
+            self.single_function_ast_str += node_str + " "
         for field, value in ast.iter_fields(node):
             if isinstance(value, list):
                 for value_item in value:
@@ -87,7 +95,7 @@ class ASTDataExtractor(ast.NodeVisitor):
                 self.node_visit(value)
 
     def save_data(self):
-        with open(self.docstring_file_path, 'w+') as docstring_file:
-            docstring_file.write(self.function_docstring)
-        with open(self.ast_file_path, 'w+') as ast_file:
-            ast_file.write(self.single_function_ast_str)
+        with open(self.docstring_ast_file_path, 'a+') as docstring_ast_file:
+            csv_writer = csv.writer(docstring_ast_file, delimiter=',')
+            csv_writer.writerow(
+                [self.single_function_docstring, self.single_function_ast_str])

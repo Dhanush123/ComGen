@@ -129,3 +129,4 @@ data/.DS_Store
 
 comgen/values/Python/
 comgen/values/alldata-*.csv
+comgen/values/alldata.csv
